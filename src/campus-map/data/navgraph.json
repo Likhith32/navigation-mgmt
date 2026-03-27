@@ -1,0 +1,114 @@
+{
+  "version": "1.1",
+  "building_id": "HOSTEL_BOYS",
+  "graphs": {
+    "HOSTEL_BOYS_G": {
+      "nodes": [
+        { "id": "HOSTEL_BOYS_G_COR_01", "lat": 18.1487, "lng": 83.37242, "type": "corridor", "floor": 0, "building_id": "HOSTEL_BOYS" },
+        { "id": "HOSTEL_BOYS_G_COR_02", "lat": 18.1487, "lng": 83.37253, "type": "corridor", "floor": 0, "building_id": "HOSTEL_BOYS" },
+        { "id": "HOSTEL_BOYS_G_COR_03", "lat": 18.1487, "lng": 83.37264, "type": "corridor", "floor": 0, "building_id": "HOSTEL_BOYS" },
+        { "id": "HOSTEL_BOYS_G_COR_04", "lat": 18.1487, "lng": 83.37275, "type": "corridor", "floor": 0, "building_id": "HOSTEL_BOYS" },
+        { "id": "HOSTEL_BOYS_G_COR_05", "lat": 18.1487, "lng": 83.37286, "type": "corridor", "floor": 0, "building_id": "HOSTEL_BOYS" },
+        { "id": "HOSTEL_BOYS_G_COR_06", "lat": 18.1487, "lng": 83.37297, "type": "corridor", "floor": 0, "building_id": "HOSTEL_BOYS" },
+        { "id": "HOSTEL_BOYS_G_COR_07", "lat": 18.1487, "lng": 83.37308, "type": "corridor", "floor": 0, "building_id": "HOSTEL_BOYS" },
+        { "id": "HOSTEL_BOYS_G_COR_08", "lat": 18.1487, "lng": 83.37319, "type": "corridor", "floor": 0, "building_id": "HOSTEL_BOYS" },
+        { "id": "HOSTEL_BOYS_G_STAIR", "lat": 18.14873, "lng": 83.37297, "type": "stairwell", "floor": 0, "building_id": "HOSTEL_BOYS", "connects_to_floors": [0, 1, 2] },
+        { "id": "HOSTEL_BOYS_G_EXIT", "lat": 18.14856, "lng": 83.372788, "type": "exit", "floor": 0, "building_id": "HOSTEL_BOYS" },
+        { "id": "HOSTEL_BOYS_G_NODE_ROOM_G01", "lat": 18.1488, "lng": 83.372475, "type": "room_entrance", "floor": 0, "building_id": "HOSTEL_BOYS" },
+        { "id": "HOSTEL_BOYS_G_NODE_ROOM_G02", "lat": 18.1488, "lng": 83.37264, "type": "room_entrance", "floor": 0, "building_id": "HOSTEL_BOYS" },
+        { "id": "HOSTEL_BOYS_G_NODE_ROOM_G03", "lat": 18.1488, "lng": 83.3728, "type": "room_entrance", "floor": 0, "building_id": "HOSTEL_BOYS" },
+        { "id": "HOSTEL_BOYS_G_NODE_ROOM_G04", "lat": 18.1488, "lng": 83.37296, "type": "room_entrance", "floor": 0, "building_id": "HOSTEL_BOYS" },
+        { "id": "HOSTEL_BOYS_G_NODE_ROOM_G05", "lat": 18.1488, "lng": 83.37313, "type": "room_entrance", "floor": 0, "building_id": "HOSTEL_BOYS" },
+        { "id": "HOSTEL_BOYS_G_NODE_ROOM_G06", "lat": 18.1486, "lng": 83.372475, "type": "room_entrance", "floor": 0, "building_id": "HOSTEL_BOYS" },
+        { "id": "HOSTEL_BOYS_G_NODE_ROOM_G07", "lat": 18.1486, "lng": 83.37264, "type": "room_entrance", "floor": 0, "building_id": "HOSTEL_BOYS" },
+        { "id": "HOSTEL_BOYS_G_NODE_ROOM_G08", "lat": 18.1486, "lng": 83.3728, "type": "room_entrance", "floor": 0, "building_id": "HOSTEL_BOYS" },
+        { "id": "HOSTEL_BOYS_G_NODE_ROOM_G09", "lat": 18.1486, "lng": 83.37296, "type": "room_entrance", "floor": 0, "building_id": "HOSTEL_BOYS" },
+        { "id": "HOSTEL_BOYS_G_NODE_ROOM_G10", "lat": 18.1486, "lng": 83.37313, "type": "room_entrance", "floor": 0, "building_id": "HOSTEL_BOYS" },
+        { "id": "HOSTEL_BOYS_G_NODE_COMMON", "lat": 18.14876, "lng": 83.37242, "type": "room_entrance", "floor": 0, "building_id": "HOSTEL_BOYS" },
+        { "id": "HOSTEL_BOYS_G_NODE_BATH_A", "lat": 18.14875, "lng": 83.3732, "type": "room_entrance", "floor": 0, "building_id": "HOSTEL_BOYS" },
+        { "id": "HOSTEL_BOYS_G_NODE_BATH_B", "lat": 18.14865, "lng": 83.3732, "type": "room_entrance", "floor": 0, "building_id": "HOSTEL_BOYS" }
+      ],
+      "edges": [
+        { "from": "HOSTEL_BOYS_G_COR_01", "to": "HOSTEL_BOYS_G_COR_02", "dist_m": 11, "type": "corridor", "accessible": true, "indoor": true },
+        { "from": "HOSTEL_BOYS_G_COR_02", "to": "HOSTEL_BOYS_G_COR_01", "dist_m": 11, "type": "corridor", "accessible": true, "indoor": true },
+        { "from": "HOSTEL_BOYS_G_COR_02", "to": "HOSTEL_BOYS_G_COR_03", "dist_m": 11, "type": "corridor", "accessible": true, "indoor": true },
+        { "from": "HOSTEL_BOYS_G_COR_03", "to": "HOSTEL_BOYS_G_COR_02", "dist_m": 11, "type": "corridor", "accessible": true, "indoor": true },
+        { "from": "HOSTEL_BOYS_G_COR_03", "to": "HOSTEL_BOYS_G_COR_04", "dist_m": 11, "type": "corridor", "accessible": true, "indoor": true },
+        { "from": "HOSTEL_BOYS_G_COR_04", "to": "HOSTEL_BOYS_G_COR_03", "dist_m": 11, "type": "corridor", "accessible": true, "indoor": true },
+        { "from": "HOSTEL_BOYS_G_COR_04", "to": "HOSTEL_BOYS_G_COR_05", "dist_m": 11, "type": "corridor", "accessible": true, "indoor": true },
+        { "from": "HOSTEL_BOYS_G_COR_05", "to": "HOSTEL_BOYS_G_COR_04", "dist_m": 11, "type": "corridor", "accessible": true, "indoor": true },
+        { "from": "HOSTEL_BOYS_G_COR_05", "to": "HOSTEL_BOYS_G_COR_06", "dist_m": 11, "type": "corridor", "accessible": true, "indoor": true },
+        { "from": "HOSTEL_BOYS_G_COR_06", "to": "HOSTEL_BOYS_G_COR_05", "dist_m": 11, "type": "corridor", "accessible": true, "indoor": true },
+        { "from": "HOSTEL_BOYS_G_COR_06", "to": "HOSTEL_BOYS_G_COR_07", "dist_m": 11, "type": "corridor", "accessible": true, "indoor": true },
+        { "from": "HOSTEL_BOYS_G_COR_07", "to": "HOSTEL_BOYS_G_COR_06", "dist_m": 11, "type": "corridor", "accessible": true, "indoor": true },
+        { "from": "HOSTEL_BOYS_G_COR_07", "to": "HOSTEL_BOYS_G_COR_08", "dist_m": 11, "type": "corridor", "accessible": true, "indoor": true },
+        { "from": "HOSTEL_BOYS_G_COR_08", "to": "HOSTEL_BOYS_G_COR_07", "dist_m": 11, "type": "corridor", "accessible": true, "indoor": true },
+        { "from": "HOSTEL_BOYS_G_NODE_ROOM_G01", "to": "HOSTEL_BOYS_G_COR_01", "dist_m": 3, "type": "corridor", "accessible": true, "indoor": true },
+        { "from": "HOSTEL_BOYS_G_COR_01", "to": "HOSTEL_BOYS_G_NODE_ROOM_G01", "dist_m": 3, "type": "corridor", "accessible": true, "indoor": true },
+        { "from": "HOSTEL_BOYS_G_NODE_ROOM_G02", "to": "HOSTEL_BOYS_G_COR_03", "dist_m": 3, "type": "corridor", "accessible": true, "indoor": true },
+        { "from": "HOSTEL_BOYS_G_COR_03", "to": "HOSTEL_BOYS_G_NODE_ROOM_G02", "dist_m": 3, "type": "corridor", "accessible": true, "indoor": true },
+        { "from": "HOSTEL_BOYS_G_NODE_ROOM_G03", "to": "HOSTEL_BOYS_G_COR_05", "dist_m": 3, "type": "corridor", "accessible": true, "indoor": true },
+        { "from": "HOSTEL_BOYS_G_COR_05", "to": "HOSTEL_BOYS_G_NODE_ROOM_G03", "dist_m": 3, "type": "corridor", "accessible": true, "indoor": true },
+        { "from": "HOSTEL_BOYS_G_NODE_ROOM_G04", "to": "HOSTEL_BOYS_G_COR_06", "dist_m": 3, "type": "corridor", "accessible": true, "indoor": true },
+        { "from": "HOSTEL_BOYS_G_COR_06", "to": "HOSTEL_BOYS_G_NODE_ROOM_G04", "dist_m": 3, "type": "corridor", "accessible": true, "indoor": true },
+        { "from": "HOSTEL_BOYS_G_NODE_ROOM_G05", "to": "HOSTEL_BOYS_G_COR_08", "dist_m": 3, "type": "corridor", "accessible": true, "indoor": true },
+        { "from": "HOSTEL_BOYS_G_COR_08", "to": "HOSTEL_BOYS_G_NODE_ROOM_G05", "dist_m": 3, "type": "corridor", "accessible": true, "indoor": true },
+        { "from": "HOSTEL_BOYS_G_NODE_ROOM_G10", "to": "HOSTEL_BOYS_G_COR_08", "dist_m": 3, "type": "corridor", "accessible": true, "indoor": true },
+        { "from": "HOSTEL_BOYS_G_COR_08", "to": "HOSTEL_BOYS_G_NODE_ROOM_G10", "dist_m": 3, "type": "corridor", "accessible": true, "indoor": true },
+        { "from": "HOSTEL_BOYS_G_STAIR", "to": "HOSTEL_BOYS_G_COR_06", "dist_m": 3, "type": "stairwell", "accessible": false, "indoor": true },
+        { "from": "HOSTEL_BOYS_G_COR_06", "to": "HOSTEL_BOYS_G_STAIR", "dist_m": 3, "type": "stairwell", "accessible": false, "indoor": true },
+        { "from": "HOSTEL_BOYS_G_EXIT", "to": "HOSTEL_BOYS_G_COR_04", "dist_m": 14, "type": "corridor", "accessible": true, "indoor": true },
+        { "from": "HOSTEL_BOYS_G_COR_04", "to": "HOSTEL_BOYS_G_EXIT", "dist_m": 14, "type": "corridor", "accessible": true, "indoor": true }
+      ]
+    },
+    "HOSTEL_BOYS_F1": {
+      "nodes": [
+        { "id": "HOSTEL_BOYS_F1_COR_01", "lat": 18.1487, "lng": 83.37242, "type": "corridor", "floor": 1, "building_id": "HOSTEL_BOYS" },
+        { "id": "HOSTEL_BOYS_F1_COR_02", "lat": 18.1487, "lng": 83.37253, "type": "corridor", "floor": 1, "building_id": "HOSTEL_BOYS" },
+        { "id": "HOSTEL_BOYS_F1_COR_03", "lat": 18.1487, "lng": 83.37264, "type": "corridor", "floor": 1, "building_id": "HOSTEL_BOYS" },
+        { "id": "HOSTEL_BOYS_F1_COR_04", "lat": 18.1487, "lng": 83.37275, "type": "corridor", "floor": 1, "building_id": "HOSTEL_BOYS" },
+        { "id": "HOSTEL_BOYS_F1_COR_05", "lat": 18.1487, "lng": 83.37286, "type": "corridor", "floor": 1, "building_id": "HOSTEL_BOYS" },
+        { "id": "HOSTEL_BOYS_F1_COR_06", "lat": 18.1487, "lng": 83.37297, "type": "corridor", "floor": 1, "building_id": "HOSTEL_BOYS" },
+        { "id": "HOSTEL_BOYS_F1_COR_07", "lat": 18.1487, "lng": 83.37308, "type": "corridor", "floor": 1, "building_id": "HOSTEL_BOYS" },
+        { "id": "HOSTEL_BOYS_F1_COR_08", "lat": 18.1487, "lng": 83.37319, "type": "corridor", "floor": 1, "building_id": "HOSTEL_BOYS" },
+        { "id": "HOSTEL_BOYS_F1_STAIR", "lat": 18.14873, "lng": 83.37297, "type": "stairwell", "floor": 1, "building_id": "HOSTEL_BOYS", "connects_to_floors": [0, 1, 2] },
+        { "id": "HOSTEL_BOYS_F1_NODE_ROOM_101", "lat": 18.1488, "lng": 83.372475, "type": "room_entrance", "floor": 1, "building_id": "HOSTEL_BOYS" },
+        { "id": "HOSTEL_BOYS_F1_NODE_ROOM_110", "lat": 18.1486, "lng": 83.37313, "type": "room_entrance", "floor": 1, "building_id": "HOSTEL_BOYS" }
+      ],
+      "edges": [
+        { "from": "HOSTEL_BOYS_F1_COR_01", "to": "HOSTEL_BOYS_F1_COR_02", "dist_m": 11, "type": "corridor", "accessible": true, "indoor": true },
+        { "from": "HOSTEL_BOYS_F1_COR_02", "to": "HOSTEL_BOYS_F1_COR_03", "dist_m": 11, "type": "corridor", "accessible": true, "indoor": true },
+        { "from": "HOSTEL_BOYS_F1_COR_03", "to": "HOSTEL_BOYS_F1_COR_04", "dist_m": 11, "type": "corridor", "accessible": true, "indoor": true },
+        { "from": "HOSTEL_BOYS_F1_COR_04", "to": "HOSTEL_BOYS_F1_COR_05", "dist_m": 11, "type": "corridor", "accessible": true, "indoor": true },
+        { "from": "HOSTEL_BOYS_F1_COR_05", "to": "HOSTEL_BOYS_F1_COR_06", "dist_m": 11, "type": "corridor", "accessible": true, "indoor": true },
+        { "from": "HOSTEL_BOYS_F1_COR_06", "to": "HOSTEL_BOYS_F1_COR_07", "dist_m": 11, "type": "corridor", "accessible": true, "indoor": true },
+        { "from": "HOSTEL_BOYS_F1_COR_07", "to": "HOSTEL_BOYS_F1_COR_08", "dist_m": 11, "type": "corridor", "accessible": true, "indoor": true },
+        { "from": "HOSTEL_BOYS_F1_NODE_ROOM_101", "to": "HOSTEL_BOYS_F1_COR_01", "dist_m": 3, "type": "corridor", "accessible": true, "indoor": true },
+        { "from": "HOSTEL_BOYS_F1_NODE_ROOM_110", "to": "HOSTEL_BOYS_F1_COR_08", "dist_m": 3, "type": "corridor", "accessible": true, "indoor": true },
+        { "from": "HOSTEL_BOYS_F1_STAIR", "to": "HOSTEL_BOYS_F1_COR_06", "dist_m": 3, "type": "stairwell", "accessible": false, "indoor": true }
+      ]
+    },
+    "HOSTEL_BOYS_F2": {
+      "nodes": [
+        { "id": "HOSTEL_BOYS_F2_COR_01", "lat": 18.1487, "lng": 83.37242, "type": "corridor", "floor": 2, "building_id": "HOSTEL_BOYS" },
+        { "id": "HOSTEL_BOYS_F2_COR_08", "lat": 18.1487, "lng": 83.37319, "type": "corridor", "floor": 2, "building_id": "HOSTEL_BOYS" },
+        { "id": "HOSTEL_BOYS_F2_STAIR", "lat": 18.14873, "lng": 83.37297, "type": "stairwell", "floor": 2, "building_id": "HOSTEL_BOYS", "connects_to_floors": [0, 1, 2] },
+        { "id": "HOSTEL_BOYS_F2_NODE_ROOM_201", "lat": 18.1488, "lng": 83.372475, "type": "room_entrance", "floor": 2, "building_id": "HOSTEL_BOYS" },
+        { "id": "HOSTEL_BOYS_F2_NODE_ROOM_210", "lat": 18.1486, "lng": 83.37313, "type": "room_entrance", "floor": 2, "building_id": "HOSTEL_BOYS" }
+      ],
+      "edges": [
+        { "from": "HOSTEL_BOYS_F2_COR_01", "to": "HOSTEL_BOYS_F2_COR_08", "dist_m": 77, "type": "corridor", "accessible": true, "indoor": true },
+        { "from": "HOSTEL_BOYS_F2_STAIR", "to": "HOSTEL_BOYS_F2_COR_01", "dist_m": 60, "type": "stairwell", "accessible": false, "indoor": true }
+      ]
+    },
+    "CROSS_FLOOR_EDGES": {
+      "nodes": [],
+      "edges": [
+        { "from": "HOSTEL_BOYS_G_STAIR", "to": "HOSTEL_BOYS_F1_STAIR", "dist_m": 7, "type": "stairwell", "accessible": false, "indoor": true },
+        { "from": "HOSTEL_BOYS_F1_STAIR", "to": "HOSTEL_BOYS_G_STAIR", "dist_m": 7, "type": "stairwell", "accessible": false, "indoor": true },
+        { "from": "HOSTEL_BOYS_F1_STAIR", "to": "HOSTEL_BOYS_F2_STAIR", "dist_m": 7, "type": "stairwell", "accessible": false, "indoor": true },
+        { "from": "HOSTEL_BOYS_F2_STAIR", "to": "HOSTEL_BOYS_F1_STAIR", "dist_m": 7, "type": "stairwell", "accessible": false, "indoor": true }
+      ]
+    }
+  }
+}

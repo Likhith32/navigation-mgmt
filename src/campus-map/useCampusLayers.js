@@ -1,6 +1,6 @@
 // useCampusLayers.js — v8: Multi-building support
 import { useMemo } from 'react';
-import { PolygonLayer, LineLayer } from '@deck.gl/layers';
+import { PolygonLayer, LineLayer, ScatterplotLayer } from '@deck.gl/layers';
 
 export const FLOOR_HEIGHT = 3.5;
 export const WALL_DEPTH   = 0.025;
@@ -19,6 +19,7 @@ export const BUILDINGS = {
     centroid: [83.372788, 18.148724],
     bbox: { minLng:83.37230, maxLng:83.37330, minLat:18.14845, maxLat:18.14900 },
     type: 'boys_hostel',
+    floors: 3,
     wallColors: {
       0: { wallRgb:[212,201,184], windowRgb:[45,58,82], accentHex:'#0E9F6E', accentRgb:[14,159,110] },
       1: { wallRgb:[184,204,175], windowRgb:[45,58,82], accentHex:'#1A56DB', accentRgb:[26,86,219] },
@@ -43,6 +44,7 @@ export const BUILDINGS = {
       maxLat: 18.149400,
     },
     type: 'boys_hostel',
+    floors: 3,
     wallColors: {
       0: { wallRgb:[212,201,184], windowRgb:[45,58,82], accentHex:'#0E9F6E', accentRgb:[14,159,110] },
       1: { wallRgb:[184,204,175], windowRgb:[45,58,82], accentHex:'#059669', accentRgb:[5,150,105] },
@@ -62,6 +64,7 @@ export const BUILDINGS = {
     centroid: [83.377667, 18.149089],
     bbox: { minLng:83.37715, maxLng:83.37820, minLat:18.14885, maxLat:18.14933 },
     type: 'girls_hostel',
+    floors: 3,
     wallColors: {
       0: { wallRgb:[230,210,218], windowRgb:[50,35,45], accentHex:'#EC4899', accentRgb:[236,72,153] },
       1: { wallRgb:[220,200,210], windowRgb:[50,35,45], accentHex:'#DB2777', accentRgb:[219,39,119] },
@@ -232,6 +235,27 @@ export const BUILDINGS = {
     floorHeight: 5.0,
     wallColors: {
       0: { wallRgb:[139,115,85], windowRgb:[40,30,15], accentHex:'#8B7355', accentRgb:[139,115,85] },
+    },
+  },
+  YSR_LIBRARY: {
+    id: 'YSR_LIBRARY',
+    name: 'YSR Central Library',
+    shortName: 'Library',
+    footprint: [
+      [83.37585, 18.14990],
+      [83.37631, 18.14990],
+      [83.37631, 18.14954],
+      [83.37585, 18.14954],
+    ],
+    centroid: [83.376083, 18.149725],
+    bbox: { minLng:83.37575, maxLng:83.37640, minLat:18.14945, maxLat:18.15000 },
+    type: 'academic',
+    floors: 3,
+    floorHeight: 3.5,
+    wallColors: {
+      0: { wallRgb:[235,235,235], windowRgb:[30,50,90], accentHex:'#1565C0', accentRgb:[21,101,192] },
+      1: { wallRgb:[230,230,230], windowRgb:[30,50,90], accentHex:'#1565C0', accentRgb:[21,101,192] },
+      2: { wallRgb:[225,225,225], windowRgb:[30,50,90], accentHex:'#1565C0', accentRgb:[21,101,192] },
     },
   },
 };
@@ -493,7 +517,37 @@ export function useCampusLayers({
       }));
     }
 
+    // Selected spatial coordinates marker / glowing beacon
+    if (selectedRoom && selectedRoom.entrance_lng && selectedRoom.entrance_lat) {
+      const z = selectedRoom.is_contextual_entity 
+        ? 0.5 
+        : (activeFloor || 0) * (BUILDINGS[activeBuildingId]?.floorHeight || FLOOR_HEIGHT) + 0.5;
+
+      // Glow pulse layer
+      layers.push(new ScatterplotLayer({
+        id: 'selected-beacon-glow',
+        data: [{ position: [selectedRoom.entrance_lng, selectedRoom.entrance_lat, z] }],
+        getPosition: d => d.position,
+        getRadius: 15,
+        radiusUnits: 'meters',
+        getFillColor: [56, 189, 248, 85], // Glowing cyan glow
+        pickable: false,
+      }));
+
+      // Central core dot
+      layers.push(new ScatterplotLayer({
+        id: 'selected-beacon-core',
+        data: [{ position: [selectedRoom.entrance_lng, selectedRoom.entrance_lat, z] }],
+        getPosition: d => d.position,
+        getRadius: 3.5,
+        radiusUnits: 'meters',
+        getFillColor: [14, 165, 233, 255], // Deep cyan core
+        getLineColor: [255, 255, 255, 255],
+        lineWidthMinPixels: 1.5,
+        pickable: false,
+      }));
+    }
+
     return layers.filter(Boolean);
   }, [roomsData, mode, activeBuildingId, activeFloor, selectedRoom, hoveredRoom, onBuildingClick, onRoomClick, onRoomHover, routeGeoJson]);
 }
-

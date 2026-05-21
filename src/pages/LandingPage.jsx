@@ -297,31 +297,33 @@ function Section1({ scrollY, onExplore, onHover }) {
             Explore Campus →
           </button>
           <button 
+            onClick={() => navigate('/library')}
             onMouseEnter={e => {
-              e.currentTarget.style.borderColor = 'var(--mint)';
-              e.currentTarget.style.color = 'var(--text)';
-              e.currentTarget.style.background = 'rgba(139,195,74,0.06)';
+              e.currentTarget.style.borderColor = '#1565C0';
+              e.currentTarget.style.color = '#ffffff';
+              e.currentTarget.style.background = 'rgba(21,101,192,0.15)';
               onHover(true);
             }} 
             onMouseLeave={e => {
-              e.currentTarget.style.borderColor = 'rgba(121,85,72,0.4)';
-              e.currentTarget.style.color = 'var(--dusty)';
+              e.currentTarget.style.borderColor = 'rgba(21,101,192,0.5)';
+              e.currentTarget.style.color = 'var(--slate)';
               e.currentTarget.style.background = 'transparent';
               onHover(false);
             }} 
             style={{ 
               padding: '16px 36px', 
               background: 'transparent', 
-              color: 'var(--dusty)', 
-              border: '1.5px solid rgba(121,85,72,0.4)', 
+              color: 'var(--slate)', 
+              border: '1.5px solid rgba(21,101,192,0.5)', 
               borderRadius: 48, 
               fontSize: 15, 
+              fontWeight: 700,
               fontFamily: 'var(--font-body)', 
               cursor: 'pointer', 
               transition: 'all 0.3s ease' 
             }}
           >
-            Watch Demo
+            Explore YSR Library 🏛️
           </button>
         </div>
 

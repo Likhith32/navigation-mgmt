@@ -1,6 +1,8 @@
 // useCampusLayers.js — v8: Multi-building support
 import { useMemo } from 'react';
 import { PolygonLayer, LineLayer, ScatterplotLayer } from '@deck.gl/layers';
+import { ScenegraphLayer } from '@deck.gl/mesh-layers';
+import { GLTFLoader } from '@loaders.gl/gltf';
 
 export const FLOOR_HEIGHT = 3.5;
 export const WALL_DEPTH   = 0.025;
@@ -488,13 +490,17 @@ function buildFloorLayers(building, roomsData, activeFloor, selectedRoom, hovere
 export function useCampusLayers({
   roomsData, mode, activeBuildingId, activeFloor,
   selectedRoom, hoveredRoom,
-  onBuildingClick, onRoomClick, onRoomHover,
+  onBuildingClick, onRoomClick, onRoomHover, onLibrary3DClick,
   routeGeoJson,
+  eventsData = [],
 }) {
   return useMemo(() => {
     const layers = [];
 
     Object.values(BUILDINGS).forEach(bldg => {
+      // Hide procedural block for library since we have a 3D model
+      if (bldg.id === 'YSR_LIBRARY') return;
+
       const isActiveBldg = bldg.id === activeBuildingId;
       const bldgMode = isActiveBldg ? mode : 'block';
 
@@ -517,6 +523,56 @@ export function useCampusLayers({
       }));
     }
 
+    // Dynamic Events Scatterplot Layer (Orange pulsing beacons for all events on the campus map)
+    if (eventsData && eventsData.length > 0) {
+      layers.push(new ScatterplotLayer({
+        id: 'all-events-beacons',
+        data: eventsData,
+        getPosition: d => [d.longitude, d.latitude, (d.floor_number || 0) * FLOOR_HEIGHT + 0.5],
+        getRadius: 8,
+        radiusUnits: 'meters',
+        getFillColor: [245, 158, 11, 150], // Pulsing orange glow
+        getLineColor: [255, 255, 255, 230],
+        lineWidthMinPixels: 1.5,
+        pickable: true,
+        onClick: ({ object }) => {
+          if (!object) return;
+          const mappedObject = {
+            id: object.id.toString(),
+            building_id: '',
+            building_name: object.location || 'Campus Center',
+            floor: object.floor_number || 0,
+            name: object.name,
+            type: 'event',
+            category: 'Event',
+            entrance_lat: object.latitude,
+            entrance_lng: object.longitude,
+            description: object.description,
+            is_contextual_entity: true,
+            is_event: true,
+            allowed_roles: object.allowed_roles || ['student', 'faculty', 'admin', 'visitor'],
+            open_time: object.open_time || null,
+            close_time: object.close_time || null,
+            event_date: object.event_date || ''
+          };
+          onRoomClick(mappedObject, object.floor_number || 0);
+        },
+        onHover: ({ object }) => {
+          if (object) {
+            onRoomHover({
+              name: object.name,
+              type: 'event',
+              floor: object.floor_number || 0
+            });
+            document.body.style.cursor = 'pointer';
+          } else {
+            onRoomHover(null);
+            document.body.style.cursor = '';
+          }
+        }
+      }));
+    }
+
     // Selected spatial coordinates marker / glowing beacon
     if (selectedRoom && selectedRoom.entrance_lng && selectedRoom.entrance_lat) {
       const z = selectedRoom.is_contextual_entity 
@@ -530,7 +586,7 @@ export function useCampusLayers({
         getPosition: d => d.position,
         getRadius: 15,
         radiusUnits: 'meters',
-        getFillColor: [56, 189, 248, 85], // Glowing cyan glow
+        getFillColor: [56, 189, 248, 85], // Glowing cyber cyan glow
         pickable: false,
       }));
 
@@ -548,6 +604,25 @@ export function useCampusLayers({
       }));
     }
 
+    // Library 3D GLB Model Layer
+    layers.push(new ScenegraphLayer({
+      id: 'library-3d-model',
+      data: [{ position: [83.3760449, 18.1496610] }],
+      scenegraph: '/Models/Library.glb',
+      loaders: [GLTFLoader],
+      getPosition: d => d.position,
+      getOrientation: [0, 0, 80], // Rotated by 10 degrees south
+      getScale: [1, 1, 1],
+      getTranslation: [0, 0, 0],
+      pickable: true,
+      onClick: () => {
+        if (onLibrary3DClick) onLibrary3DClick();
+      },
+      onHover: ({ object }) => {
+        if (object) document.body.style.cursor = 'pointer';
+      }
+    }));
+
     return layers.filter(Boolean);
-  }, [roomsData, mode, activeBuildingId, activeFloor, selectedRoom, hoveredRoom, onBuildingClick, onRoomClick, onRoomHover, routeGeoJson]);
+  }, [roomsData, mode, activeBuildingId, activeFloor, selectedRoom, hoveredRoom, onBuildingClick, onRoomClick, onRoomHover, onLibrary3DClick, routeGeoJson, eventsData]);
 }

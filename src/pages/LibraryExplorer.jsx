@@ -6,16 +6,24 @@ export default function LibraryExplorer() {
 
   const handleRoomSelect = (roomName, floorLevel) => {
     console.log(`Deep link select room: ${roomName} on Floor level ${floorLevel}`);
-    alert(`📍 Deep Linking selected: "${roomName}" (Floor Level: ${floorLevel})\nNavigating from structural nodes to campus index database!`);
   };
 
   return (
-    <div className="w-full h-full relative">
-      {/* Floating Theme Switcher */}
-      <div className="absolute top-[21px] right-36 z-50">
+    <div style={{ width: '100%', height: '100%', position: 'relative' }}>
+      <div style={{ position: 'absolute', top: '21px', right: '36px', zIndex: 50 }}>
         <button
           onClick={() => setTheme(t => t === 'dark' ? 'light' : 'dark')}
-          className="px-3.5 py-1.5 rounded-lg text-xs font-semibold bg-gray-800 hover:bg-gray-700 text-white cursor-pointer transition-all border border-gray-700"
+          style={{
+            padding: '6px 14px',
+            borderRadius: '8px',
+            fontSize: '12px',
+            fontWeight: '600',
+            backgroundColor: '#1f2937',
+            color: '#fff',
+            cursor: 'pointer',
+            border: '1px solid #374151',
+            transition: 'all 0.2s'
+          }}
           title="Toggle UI Theme"
         >
           {theme === 'dark' ? '☀️ Light' : '🌙 Dark'}

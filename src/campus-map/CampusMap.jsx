@@ -1,5 +1,6 @@
 // CampusMap.jsx — v8: Multi-building stable
 import { useEffect, useRef, useState, useCallback, useMemo } from 'react';
+import { useNavigate } from 'react-router-dom';
 import maplibregl from 'maplibre-gl';
 import 'maplibre-gl/dist/maplibre-gl.css';
 import { MapboxOverlay } from '@deck.gl/mapbox';
@@ -11,6 +12,8 @@ import { usePathfinding } from './usePathfinding';
 import roomsData          from './data/rooms.json';
 import navgraphData       from './data/navgraph.json';
 import { getBuildingCameras } from './utils/buildingCameras';
+import CampusChatbot from './CampusChatbot';
+import LibraryExplorer from '../pages/LibraryExplorer';
 
 const CAMPUS_CENTER = [83.375500, 18.150300];
 
@@ -73,6 +76,11 @@ export default function CampusMap() {
   const [activeCam,    setActiveCam]    = useState('iso');
   const [activeBldgCam, setActiveBldgCam] = useState('bldg-iso');
   const [rightClickCoords, setRightClickCoords] = useState(null);
+  const [events,       setEvents]       = useState([]);
+  const [showLibraryModal, setShowLibraryModal] = useState(false);
+
+  const navigate = useNavigate();
+  const [isIslandExpanded, setIsIslandExpanded] = useState(false);
 
   const modeRef               = useRef('block');
   const handleBuildingClickRef = useRef(null);
@@ -85,9 +93,31 @@ export default function CampusMap() {
   useEffect(() => { modeRef.current = mode; }, [mode]);
   useEffect(() => { handleRightClickRef.current = handleRightClick; }, [handleRightClick]);
 
+  // Load events from database/localStorage on mount
+  useEffect(() => {
+    const loadEventsData = async () => {
+      try {
+        const response = await fetch('http://localhost:5000/api/events');
+        if (response.ok) {
+          const data = await response.json();
+          setEvents(data);
+        } else {
+          throw new Error('API server returned error status');
+        }
+      } catch (err) {
+        console.warn('⚠️ Server offline or credentials error. Fetching events from localStorage.');
+        const localEvents = localStorage.getItem('college_events');
+        if (localEvents) {
+          setEvents(JSON.parse(localEvents));
+        }
+      }
+    };
+    loadEventsData();
+  }, []);
+
   const [userRole, setUserRole] = useState('student');
   const rooms = useMemo(() => roomsData?.rooms || [], []);
-  const { query, results, search, combinedRooms }   = useRoomSearch(rooms);
+  const { query, results, search, combinedRooms }   = useRoomSearch(rooms, events);
   const { routeGeoJson, findRoute, clearRoute, accessibleOnly, setAccessibleOnly } = usePathfinding(navgraphData);
   const { eyeMode, toggleEyeMode, handlers: eyeHandlers } = useEyeControl(mapRef);
 
@@ -223,14 +253,58 @@ export default function CampusMap() {
     });
 
     map.addControl(new maplibregl.NavigationControl({ showCompass:true, visualizePitch:true }), 'top-right');
-    return () => { map.remove(); mapRef.current = null; };
+  }, []);
+
+  // Handle external selection via URL query parameter (e.g. ?select=event-id)
+  useEffect(() => {
+    if (!mapReady || combinedRooms.length === 0) return;
+    const params = new URLSearchParams(window.location.search);
+    const selectId = params.get('select');
+    if (selectId) {
+      const found = combinedRooms.find(r => r.id.toString() === selectId.toString());
+      if (found) {
+        // Run map focus and select
+        setTimeout(() => {
+          setMode('block');
+          setActiveBuildingId(found.building_id || null);
+          setActiveFloor(found.floor || 0);
+          setSelectedRoom(found);
+          setPanelState('room');
+          
+          mapRef.current?.flyTo({
+            center: [found.entrance_lng, found.entrance_lat],
+            zoom: 19.0,
+            pitch: 55,
+            bearing: 0,
+            duration: 1000
+          });
+        }, 400);
+      }
+    }
+  }, [mapReady, combinedRooms]);
+
+  const handleLibrary3DClick = useCallback(() => {
+    if (mapRef.current) {
+      mapRef.current.flyTo({
+        center: [83.3759588, 18.1497557],
+        zoom: 20.5,
+        pitch: 75,
+        bearing: 45,
+        duration: 1500
+      });
+      setTimeout(() => {
+        setShowLibraryModal(true);
+      }, 1600);
+    }
   }, []);
 
   const layers = useCampusLayers({
     roomsData: rooms, mode, activeBuildingId, activeFloor,
     selectedRoom, hoveredRoom,
     onBuildingClick: handleBuildingClick, onRoomClick: handleRoomClick, onRoomHover: handleRoomHover,
+    onLibrary3DClick: handleLibrary3DClick,
     routeGeoJson,
+    eventsData: events,
   });
 
   useEffect(() => { overlayRef.current?.setProps({ layers }); }, [layers]);
@@ -373,49 +447,77 @@ export default function CampusMap() {
         </select>
       </div>
 
-      {/* SEARCH */}
-      <div className="search-bar">
-        <div className="search-input-wrap">
-          <svg width="16" height="16" fill="none" stroke="white" strokeWidth="2" style={{opacity:.5,flexShrink:0}}><circle cx="7" cy="7" r="5"/><path d="m13 13-3-3"/></svg>
-          <input className="search-input" placeholder="Search rooms or facilities…" value={query} onChange={e=>search(e.target.value)} />
-          {query&&<button onClick={()=>search('')} style={{background:'none',border:'none',color:'rgba(255,255,255,.4)',cursor:'pointer',fontSize:18}}>×</button>}
-        </div>
-        {results.length>0&&(
-          <div className="search-results">
-            {results.map(room=>(
-              <div key={room.id} className="search-result-item" onClick={()=>handleSearchSelect(room)}>
-                <div>
-                  <div className="result-name">{room.name}</div>
-                  <div className="result-sub">
-                    {room.is_contextual_entity 
-                      ? `${room.category} · Coordinate system`
-                      : `${BUILDINGS[room.building_id]?.name || 'Outdoor'} · ${FLOOR_CONFIG[room.floor]?.label || 'Ground'} floor`
-                    }
-                  </div>
-                </div>
-                <span className="result-badge" style={{
-                  background: (room.is_contextual_entity ? '#38bdf8' : FLOOR_CONFIG[room.floor]?.accentHex || '#38bdf8') + '33',
-                  color: room.is_contextual_entity ? '#38bdf8' : FLOOR_CONFIG[room.floor]?.accentHex || '#38bdf8'
-                }}>
-                  {room.is_contextual_entity ? room.category : (ROOM_TYPE[room.type]?.label||room.type)}
-                </span>
-              </div>
-            ))}
-          </div>
-        )}
-      </div>
+      {/* DYNAMIC ISLAND SEARCH BAR */}
+      <div 
+        className={`search-bar ${isIslandExpanded ? 'island-expanded' : 'island-compact'}`}
+        onClick={() => !isIslandExpanded && setIsIslandExpanded(true)}
+      >
+        {!isIslandExpanded ? (
+          <>
+            <div className="island-pulse-dot" />
+            <span className="island-compact-readout">🔍 Quick Search...</span>
+          </>
+        ) : (
+          <>
+            <div className="search-input-wrap">
+              <svg width="16" height="16" fill="none" stroke="white" strokeWidth="2" style={{opacity:.5,flexShrink:0}}><circle cx="7" cy="7" r="5"/><path d="m13 13-3-3"/></svg>
+              <input 
+                className="search-input" 
+                placeholder="Search rooms, events or services…" 
+                value={query} 
+                onChange={e=>search(e.target.value)}
+                autoFocus
+              />
+              <button 
+                onClick={(e) => {
+                  e.stopPropagation();
+                  search('');
+                  setIsIslandExpanded(false);
+                }} 
+                style={{background:'none',border:'none',color:'rgba(255,255,255,.4)',cursor:'pointer',fontSize:16}}
+              >
+                ✕
+              </button>
+            </div>
 
-      {/* CAMERA PRESETS (Main) */}
-      <div style={{position:'absolute',top:72,left:'50%',transform:'translateX(-50%)', display:'flex',gap:5,zIndex:10}}>
-        {CAMERA_PRESETS.map(p=>(
-          <button key={p.id} onClick={()=>applyPreset(p)} style={{
-            padding:'5px 11px', borderRadius:8, fontFamily:'inherit', cursor:'pointer',
-            border: activeCam===p.id ? `1px solid ${floorCfg.accentHex}` : '1px solid rgba(255,255,255,.12)',
-            background: activeCam===p.id ? floorCfg.accentHex+'33' : 'rgba(15,20,35,.88)',
-            backdropFilter:'blur(8px)', color: activeCam===p.id ? floorCfg.accentHex : 'rgba(255,255,255,.6)',
-            fontSize:12, fontWeight:500,
-          }}>{p.icon} {p.label}</button>
-        ))}
+            {/* EXPANDABLE SMART SEARCH SUGGESTIONS */}
+            <div className="search-chips-container">
+              <div className="search-chip" onClick={(e) => { e.stopPropagation(); search('classroom'); }}>Classrooms 🏫</div>
+              <div className="search-chip" onClick={(e) => { e.stopPropagation(); search('lab'); }}>Labs 🔬</div>
+              <div className="search-chip" onClick={(e) => { e.stopPropagation(); search('restroom'); }}>Restrooms 🚻</div>
+              <div className="search-chip" onClick={(e) => { e.stopPropagation(); search('food'); }}>Food & Canteens 🍔</div>
+              <div className="search-chip" onClick={(e) => { e.stopPropagation(); search('medical'); }}>Medical 💊</div>
+              <div className="search-chip" onClick={(e) => { e.stopPropagation(); search('event'); }}>Events 📅</div>
+            </div>
+
+            {results.length > 0 && (
+              <div className="search-results">
+                {results.map(room=>(
+                  <div key={room.id} className="search-result-item" onClick={(e)=>{
+                    e.stopPropagation();
+                    handleSearchSelect(room);
+                  }}>
+                    <div>
+                      <div className="result-name">{room.name}</div>
+                      <div className="result-sub">
+                        {room.is_contextual_entity 
+                          ? `${room.category} · Coordinates`
+                          : `${BUILDINGS[room.building_id]?.name || 'Outdoor'} · Floor ${room.floor}`
+                        }
+                      </div>
+                    </div>
+                    <span className="result-badge" style={{
+                      background: (room.is_contextual_entity ? '#38bdf8' : FLOOR_CONFIG[room.floor]?.accentHex || '#38bdf8') + '33',
+                      color: room.is_contextual_entity ? '#38bdf8' : FLOOR_CONFIG[room.floor]?.accentHex || '#38bdf8'
+                    }}>
+                      {room.is_contextual_entity ? room.category : (ROOM_TYPE[room.type]?.label||room.type)}
+                    </span>
+                  </div>
+                ))}
+              </div>
+            )}
+          </>
+        )}
       </div>
 
       {/* ── BUILDING-SPECIFIC CAMERA BAR ──────────────────────────────── */}
@@ -771,10 +873,55 @@ export default function CampusMap() {
         )}
       </div>
 
-      {/* ACCESSIBLE TOGGLE */}
-      <div className="accessible-toggle" onClick={()=>setAccessibleOnly(v=>!v)}>
-        <span>♿ Accessible only</span>
-        <div className={`toggle-switch ${accessibleOnly?'on':''}`}><div className="toggle-knob"/></div>
+      {/* GLASSMORPHISM FLOATING DOCK (macOS Apple style) */}
+      <div className="floating-dock">
+        {/* Preset views */}
+        {CAMERA_PRESETS.map(p => {
+          const isActive = activeCam === p.id;
+          return (
+            <button 
+              key={p.id} 
+              className={`dock-item ${isActive ? 'active' : ''}`}
+              onClick={() => applyPreset(p)}
+            >
+              <span style={{ fontSize: 18 }}>{p.icon}</span>
+              <span className="dock-tooltip">{p.label} View</span>
+            </button>
+          );
+        })}
+
+        {/* Separator line */}
+        <div className="dock-divider" />
+
+        {/* Dynamic Route Congestion / Accessible Toggle */}
+        <button 
+          className={`dock-item ${accessibleOnly ? 'active' : ''}`}
+          onClick={() => setAccessibleOnly(v => !v)}
+        >
+          <span style={{ fontSize: 18 }}>♿</span>
+          <span className="dock-tooltip">Accessible Routes Only</span>
+        </button>
+
+        {/* Clear route button */}
+        <button 
+          className="dock-item"
+          onClick={clearRoute}
+        >
+          <span style={{ fontSize: 18 }}>✕</span>
+          <span className="dock-tooltip">Clear Route Path</span>
+        </button>
+
+        {/* Separator line */}
+        <div className="dock-divider" />
+
+        {/* Redirect to Admin portal */}
+        <button 
+          className="dock-item"
+          onClick={() => navigate('/admin')}
+        >
+          <span style={{ fontSize: 18 }}>🛠️</span>
+          <span className="dock-tooltip">Event Manager Portal</span>
+        </button>
       </div>
 
       {/* HOVER TOOLTIP */}
@@ -857,6 +1004,87 @@ export default function CampusMap() {
           >
             📋 Copy GPS Coordinates
           </button>
+        </div>
+      )}
+
+      {/* RAG CHATBOT MODULE */}
+      <CampusChatbot 
+        events={events} 
+        onSelectEntity={handleSearchSelect} 
+        activeRole={userRole} 
+      />
+
+      {/* LIBRARY MODAL POPUP */}
+      {showLibraryModal && (
+        <div style={{
+          position: 'fixed',
+          top: 0,
+          left: 0,
+          width: '100vw',
+          height: '100vh',
+          backgroundColor: 'rgba(0, 0, 0, 0.65)',
+          backdropFilter: 'blur(8px)',
+          zIndex: 9999,
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'center'
+        }}>
+          <div style={{
+            width: '90%',
+            height: '90%',
+            backgroundColor: '#0a0f1e',
+            borderRadius: '24px',
+            overflow: 'hidden',
+            border: '1px solid rgba(56, 189, 248, 0.3)',
+            boxShadow: '0 20px 60px rgba(0, 0, 0, 0.8), 0 0 40px rgba(56, 189, 248, 0.15)',
+            position: 'relative',
+            animation: 'modalScaleUp 0.3s cubic-bezier(0.16, 1, 0.3, 1)'
+          }}>
+            <style dangerouslySetInnerHTML={{__html: `
+              @keyframes modalScaleUp {
+                from { opacity: 0; transform: scale(0.95) translateY(20px); }
+                to { opacity: 1; transform: scale(1) translateY(0); }
+              }
+            `}} />
+            
+            {/* Modal Header */}
+            <div style={{
+              position: 'absolute',
+              top: 16,
+              right: 20,
+              zIndex: 10000,
+              display: 'flex',
+              gap: 12,
+            }}>
+              <button
+                onClick={() => setShowLibraryModal(false)}
+                style={{
+                  background: 'rgba(239, 68, 68, 0.2)',
+                  border: '1px solid rgba(239, 68, 68, 0.4)',
+                  color: '#fca5a5',
+                  width: '36px',
+                  height: '36px',
+                  borderRadius: '50%',
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  cursor: 'pointer',
+                  fontSize: '18px',
+                  transition: 'all 0.2s',
+                }}
+                onMouseOver={e => e.currentTarget.style.background = 'rgba(239, 68, 68, 0.4)'}
+                onMouseOut={e => e.currentTarget.style.background = 'rgba(239, 68, 68, 0.2)'}
+                title="Close 3D Explorer"
+              >
+                ✕
+              </button>
+            </div>
+            
+            {/* Content (Library Explorer) */}
+            <div style={{ width: '100%', height: '100%' }}>
+              <LibraryExplorer />
+            </div>
+          </div>
         </div>
       )}
     </div>

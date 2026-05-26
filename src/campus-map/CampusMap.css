@@ -15,25 +15,90 @@
   height: 100%;
 }
 
-/* ── Search bar ────────────────────────────────────────────── */
+/* ── Search bar (Dynamic Island) ────────────────────────────── */
 .search-bar {
   position: absolute;
   top: 20px;
   left: 50%;
   transform: translateX(-50%);
-  width: min(480px, calc(100vw - 40px));
-  z-index: 10;
+  z-index: 200;
+  transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+  box-sizing: border-box;
+}
+
+/* Island resting / compact state */
+.search-bar.island-compact {
+  width: 210px;
+  height: 44px;
+  background: rgba(10, 15, 26, 0.85);
+  backdrop-filter: blur(20px);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 22px;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.3), 0 0 1px rgba(255, 255, 255, 0.1) inset;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  overflow: hidden;
+  padding: 0 16px;
+}
+
+.search-bar.island-compact:hover {
+  background: rgba(15, 22, 38, 0.95);
+  border-color: rgba(56, 189, 248, 0.35);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4), 0 0 15px rgba(56, 189, 248, 0.15);
+  transform: translateX(-50%) scale(1.03);
+}
+
+.island-compact-readout {
+  font-size: 13px;
+  font-weight: 600;
+  color: rgba(255, 255, 255, 0.7);
+  letter-spacing: -0.01em;
+  white-space: nowrap;
+}
+
+.island-pulse-dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: #10b981;
+  box-shadow: 0 0 8px #10b981;
+  animation: pulseGreen 2s infinite;
+}
+
+@keyframes pulseGreen {
+  0% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(16, 185, 129, 0.7); }
+  70% { transform: scale(1); box-shadow: 0 0 0 6px rgba(16, 185, 129, 0); }
+  100% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(16, 185, 129, 0); }
+}
+
+/* Island expanded state */
+.search-bar.island-expanded {
+  width: min(520px, calc(100vw - 40px));
+  background: rgba(10, 15, 28, 0.94);
+  backdrop-filter: blur(24px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 20px;
+  box-shadow: 0 20px 48px rgba(0, 0, 0, 0.6), 0 0 20px rgba(56, 189, 248, 0.15);
+  padding: 8px;
 }
 
 .search-input-wrap {
   display: flex;
   align-items: center;
-  background: rgba(15, 20, 35, 0.92);
-  backdrop-filter: blur(12px);
-  border: 1px solid rgba(255,255,255,0.12);
-  border-radius: 14px;
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  border-radius: 16px;
   padding: 0 16px;
   gap: 10px;
+  transition: all 0.25s;
+}
+
+.search-input-wrap:focus-within {
+  background: rgba(255, 255, 255, 0.06);
+  border-color: rgba(56, 189, 248, 0.4);
 }
 
 .search-input-wrap svg { opacity: 0.5; flex-shrink: 0; }
@@ -45,19 +110,51 @@
   outline: none;
   color: #f1f5f9;
   font-size: 15px;
-  padding: 14px 0;
+  padding: 12px 0;
   font-family: inherit;
 }
 
 .search-input::placeholder { color: rgba(255,255,255,0.3); }
 
+/* Quick suggestion chips under expanded search */
+.search-chips-container {
+  display: flex;
+  gap: 8px;
+  padding: 8px 4px 2px;
+  overflow-x: auto;
+}
+.search-chips-container::-webkit-scrollbar { display: none; }
+
+.search-chip {
+  padding: 4px 10px;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 12px;
+  font-size: 11px;
+  font-weight: 600;
+  color: rgba(255, 255, 255, 0.6);
+  cursor: pointer;
+  white-space: nowrap;
+  transition: all 0.2s;
+}
+.search-chip:hover {
+  background: rgba(56, 189, 248, 0.12);
+  border-color: rgba(56, 189, 248, 0.3);
+  color: #38bdf8;
+}
+
 .search-results {
   margin-top: 8px;
-  background: rgba(15, 20, 35, 0.95);
-  backdrop-filter: blur(12px);
-  border: 1px solid rgba(255,255,255,0.1);
-  border-radius: 12px;
+  background: rgba(10, 15, 28, 0.7);
+  border-radius: 14px;
   overflow: hidden;
+  border-top: 1px solid rgba(255, 255, 255, 0.06);
+  animation: fadeInDown 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+@keyframes fadeInDown {
+  from { opacity: 0; transform: translateY(-8px); }
+  to { opacity: 1; transform: translateY(0); }
 }
 
 .search-result-item {
@@ -270,42 +367,144 @@
   backdrop-filter: blur(8px);
 }
 
-/* ── Accessible mode toggle ────────────────────────────────── */
-.accessible-toggle {
+/* ── Glassmorphism Floating Dock (macOS Apple style) ───────── */
+.floating-dock {
   position: absolute;
-  bottom: 100px;
-  left: 20px;
+  bottom: 24px;
+  left: 50%;
+  transform: translateX(-50%);
   display: flex;
   align-items: center;
   gap: 10px;
-  background: rgba(15,20,35,0.9);
-  backdrop-filter: blur(8px);
-  border: 1px solid rgba(255,255,255,0.1);
-  border-radius: 12px;
-  padding: 10px 14px;
-  z-index: 10;
+  background: rgba(10, 15, 30, 0.72);
+  backdrop-filter: blur(24px) saturate(180%);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 24px;
+  padding: 8px 14px;
+  box-shadow: 0 16px 40px rgba(0, 0, 0, 0.5), inset 0 1px 0 rgba(255, 255, 255, 0.1);
+  z-index: 100;
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.dock-item {
+  width: 44px;
+  height: 44px;
+  border-radius: 14px;
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  color: rgba(255, 255, 255, 0.65);
   cursor: pointer;
-}
-
-.accessible-toggle span { font-size: 13px; color: rgba(255,255,255,0.6); font-family: inherit; }
-
-.toggle-switch {
-  width: 36px; height: 20px;
-  background: rgba(255,255,255,0.15);
-  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
   position: relative;
-  transition: background 0.2s;
 }
-.toggle-switch.on { background: #0E9F6E; }
-.toggle-knob {
-  width: 16px; height: 16px;
-  background: white;
-  border-radius: 50%;
+
+.dock-item:hover {
+  transform: translateY(-8px) scale(1.18);
+  background: rgba(56, 189, 248, 0.14);
+  border-color: rgba(56, 189, 248, 0.35);
+  color: #38bdf8;
+  box-shadow: 0 8px 20px rgba(56, 189, 248, 0.2);
+}
+
+.dock-item.active {
+  background: rgba(56, 189, 248, 0.2);
+  border-color: #38bdf8;
+  color: #38bdf8;
+  box-shadow: 0 4px 12px rgba(56, 189, 248, 0.1);
+}
+
+/* Dock separator line */
+.dock-divider {
+  width: 1px;
+  height: 24px;
+  background: rgba(255, 255, 255, 0.12);
+  margin: 0 4px;
+}
+
+/* Dock item tooltips */
+.dock-tooltip {
   position: absolute;
-  top: 2px; left: 2px;
-  transition: transform 0.2s;
+  bottom: 58px;
+  left: 50%;
+  transform: translateX(-50%) translateY(8px);
+  background: rgba(10, 15, 26, 0.95);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 8px;
+  padding: 5px 10px;
+  font-size: 11px;
+  font-weight: 600;
+  color: #f1f5f9;
+  pointer-events: none;
+  white-space: nowrap;
+  opacity: 0;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+  transition: all 0.15s cubic-bezier(0.16, 1, 0.3, 1);
 }
-.toggle-switch.on .toggle-knob { transform: translateX(16px); }
+
+.dock-item:hover .dock-tooltip {
+  opacity: 1;
+  transform: translateX(-50%) translateY(0);
+}
+
+
+/* ── AI Floating Orb Assistant (Bottom-Right AI Orb) ───────── */
+.ai-floating-orb {
+  width: 58px;
+  height: 58px;
+  border-radius: 50%;
+  background: radial-gradient(circle at 30% 30%, #38bdf8 0%, #4f46e5 55%, #1e1b4b 100%);
+  border: none;
+  cursor: pointer;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  box-shadow: 
+    0 0 20px rgba(56, 189, 248, 0.6), 
+    0 0 40px rgba(79, 70, 229, 0.3), 
+    inset 0 0 12px rgba(255, 255, 255, 0.5);
+  animation: 
+    orbBreath 3s ease-in-out infinite alternate, 
+    liquidOrb 12s ease-in-out infinite alternate;
+  transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.ai-floating-orb:hover {
+  transform: scale(1.1) rotate(10deg);
+  box-shadow: 
+    0 0 30px rgba(56, 189, 248, 0.8), 
+    0 0 60px rgba(79, 70, 229, 0.5), 
+    inset 0 0 16px rgba(255, 255, 255, 0.7);
+}
+
+/* Internal holographic energy wave */
+.ai-floating-orb::before {
+  content: '';
+  position: absolute;
+  inset: 2px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.25) 0%, transparent 50%, rgba(56, 189, 248, 0.15) 100%);
+  filter: blur(1px);
+  pointer-events: none;
+}
+
+/* Liquid border deformation animation */
+@keyframes liquidOrb {
+  0% { border-radius: 50% 50% 50% 50% / 50% 50% 50% 50%; }
+  33% { border-radius: 54% 46% 56% 44% / 46% 56% 44% 54%; }
+  66% { border-radius: 48% 52% 43% 57% / 57% 43% 57% 48%; }
+  100% { border-radius: 52% 48% 54% 46% / 48% 52% 46% 54%; }
+}
+
+/* Breathing glow animation */
+@keyframes orbBreath {
+  0% { transform: scale(1.0); box-shadow: 0 0 20px rgba(56, 189, 248, 0.5), 0 0 35px rgba(79, 70, 229, 0.2), inset 0 0 10px rgba(255,255,255,0.4); }
+  100% { transform: scale(1.06); box-shadow: 0 0 28px rgba(56, 189, 248, 0.7), 0 0 50px rgba(79, 70, 229, 0.4), inset 0 0 15px rgba(255,255,255,0.6); }
+}
 
 /* ── Loading overlay ───────────────────────────────────────── */
 .loading-overlay {

@@ -3,7 +3,7 @@ import { useState, useMemo, useCallback } from 'react';
 import Fuse from 'fuse.js';
 import campusData from './data/campus_data.json';
 
-export function useRoomSearch(rooms) {
+export function useRoomSearch(rooms, events = []) {
   const [query, setQuery]     = useState('');
   const [results, setResults] = useState([]);
 
@@ -31,8 +31,33 @@ export function useRoomSearch(rooms) {
       open_time: ent.open_time || null,
       close_time: ent.close_time || null
     }));
-    return [...rooms, ...mappedEntities];
-  }, [rooms]);
+
+    const mappedEvents = events.map(evt => ({
+      id: evt.id.toString(),
+      building_id: '',
+      building_name: evt.location || 'Campus Center',
+      floor: evt.floor_number !== undefined ? evt.floor_number : 0,
+      floor_label: evt.floor_number === 0 ? "Ground" : evt.floor_number === 1 ? "First" : evt.floor_number === 2 ? "Second" : "Upper",
+      name: evt.name,
+      type: 'event',
+      category: 'Event',
+      capacity: null,
+      area_sqm: null,
+      attributes: ['event', 'happening', 'showcase', 'schedule', 'college'],
+      entrance_lat: evt.latitude,
+      entrance_lng: evt.longitude,
+      description: evt.description || `${evt.name} happening at ${evt.location}`,
+      is_contextual_entity: true,
+      is_event: true,
+      role_access: 'all',
+      allowed_roles: evt.allowed_roles || ['student', 'faculty', 'admin', 'visitor'],
+      open_time: evt.open_time || null,
+      close_time: evt.close_time || null,
+      event_date: evt.event_date || ''
+    }));
+
+    return [...rooms, ...mappedEntities, ...mappedEvents];
+  }, [rooms, events]);
 
   const fuse = useMemo(() => new Fuse(combinedRooms, {
     keys: ['name', 'building_id', 'building_name', 'type', 'category', 'attributes', 'description'],

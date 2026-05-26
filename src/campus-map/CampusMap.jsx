@@ -1,4 +1,4 @@
-// CampusMap.jsx — v8: Multi-building stable
+// CampusMap.jsx — v9: Fixed hook order
 import { useEffect, useRef, useState, useCallback, useMemo } from 'react';
 import maplibregl from 'maplibre-gl';
 import 'maplibre-gl/dist/maplibre-gl.css';
@@ -11,7 +11,8 @@ import { usePathfinding } from './usePathfinding';
 import roomsData          from './data/rooms.json';
 import navgraphData       from './data/navgraph.json';
 import { getBuildingCameras } from './utils/buildingCameras';
-
+import { useCampusPaths } from './useCampusPaths';
+import PathTooltip from './PathTooltip';
 const CAMPUS_CENTER = [83.375500, 18.150300];
 
 const CAMERA_PRESETS = [
@@ -59,10 +60,19 @@ const ROOM_TYPE = {
 };
 
 export default function CampusMap() {
+  // ============================================
+  // ALL HOOKS FIRST - IN FIXED ORDER
+  // ============================================
+  
+  // Refs
   const mapContainer = useRef(null);
   const mapRef       = useRef(null);
   const overlayRef   = useRef(null);
+  const modeRef      = useRef('block');
+  const handleBuildingClickRef = useRef(null);
+  const handleRightClickRef   = useRef(null);
 
+  // State hooks
   const [mapReady,     setMapReady]     = useState(false);
   const [mode,         setMode]         = useState('block');
   const [activeBuildingId, setActiveBuildingId] = useState(null);
@@ -73,29 +83,30 @@ export default function CampusMap() {
   const [activeCam,    setActiveCam]    = useState('iso');
   const [activeBldgCam, setActiveBldgCam] = useState('bldg-iso');
   const [rightClickCoords, setRightClickCoords] = useState(null);
-
-  const modeRef               = useRef('block');
-  const handleBuildingClickRef = useRef(null);
-  const handleRightClickRef   = useRef(null);
-
-  const handleRightClick = useCallback((lng, lat) => {
-    setRightClickCoords({ lng, lat });
-  }, []);
-
-  useEffect(() => { modeRef.current = mode; }, [mode]);
-  useEffect(() => { handleRightClickRef.current = handleRightClick; }, [handleRightClick]);
-
   const [userRole, setUserRole] = useState('student');
+  const [hoveredPath, setHoveredPath] = useState(null);
+  const [clickedPath, setClickedPath] = useState(null);
+  const [hoveredBuildingId, setHoveredBuildingId] = useState(null);
+  // Custom hooks
   const rooms = useMemo(() => roomsData?.rooms || [], []);
-  const { query, results, search, combinedRooms }   = useRoomSearch(rooms);
+  const { query, results, search, combinedRooms } = useRoomSearch(rooms);
   const { routeGeoJson, findRoute, clearRoute, accessibleOnly, setAccessibleOnly } = usePathfinding(navgraphData);
   const { eyeMode, toggleEyeMode, handlers: eyeHandlers } = useEyeControl(mapRef);
-
+  const { clearSelection: clearPathSelection } = useCampusPaths(mapRef, mapReady, {
+  onPathHover: setHoveredPath,
+  onPathClick: setClickedPath,
+  });
+  // Memoized data
   const buildingCameras = useMemo(() => {
     if (!activeBuildingId) return [];
     const building = BUILDINGS[activeBuildingId];
     return building ? getBuildingCameras(building) : [];
   }, [activeBuildingId]);
+
+  // Callbacks
+  const handleRightClick = useCallback((lng, lat) => {
+    setRightClickCoords({ lng, lat });
+  }, []);
 
   const applyPreset = useCallback((preset) => {
     setActiveCam(preset.id);
@@ -118,8 +129,6 @@ export default function CampusMap() {
     }
   }, []);
 
-  useEffect(() => { handleBuildingClickRef.current = handleBuildingClick; }, [handleBuildingClick]);
-
   const handleFloorSelect = useCallback((floorIdx) => {
     setActiveFloor(floorIdx); setSelectedRoom(null); setPanelState('floors');
     const bldg = BUILDINGS[activeBuildingId];
@@ -136,10 +145,13 @@ export default function CampusMap() {
   const handleRoomHover = useCallback((room) => { setHoveredRoom(room); }, []);
 
   const handleBackToBlock = useCallback(() => {
-    setMode('block'); setActiveBuildingId(null); setActiveFloor(null); setPanelState('none'); setSelectedRoom(null);
-    setActiveBldgCam(null);
-    clearRoute(); applyPreset(CAMERA_PRESETS[0]);
-  }, [applyPreset, clearRoute]);
+  setMode('block'); setActiveBuildingId(null); setActiveFloor(null); setPanelState('none'); setSelectedRoom(null);
+  setActiveBldgCam(null);
+  clearRoute(); 
+  clearPathSelection?.();
+  setClickedPath(null);
+  applyPreset(CAMERA_PRESETS[0]);
+}, [applyPreset, clearRoute, clearPathSelection]);
 
   const handleBackToFloors = useCallback(() => { setSelectedRoom(null); setPanelState('floors'); }, []);
 
@@ -170,11 +182,8 @@ export default function CampusMap() {
 
   const handleGetRoute = useCallback(() => {
     if (!selectedRoom) return;
-
-    // Check if access is allowed
     const isAllowed = (selectedRoom.allowed_roles || ['student', 'faculty', 'admin', 'visitor']).includes(userRole);
-    if (!isAllowed) return; // Safeguard
-
+    if (!isAllowed) return;
     let from = null;
     if (selectedRoom.building_id) {
       from = combinedRooms.find(r => r.building_id === selectedRoom.building_id && r.id !== selectedRoom.id && r.type !== 'corridor' && r.type !== 'stairwell');
@@ -185,6 +194,33 @@ export default function CampusMap() {
     if (from) findRoute(from, selectedRoom);
   }, [selectedRoom, combinedRooms, findRoute, userRole]);
 
+  // Update refs when values change
+  useEffect(() => { modeRef.current = mode; }, [mode]);
+  useEffect(() => { handleBuildingClickRef.current = handleBuildingClick; }, [handleBuildingClick]);
+  useEffect(() => { handleRightClickRef.current = handleRightClick; }, [handleRightClick]);
+
+  // ============================================
+  // CRITICAL: useCampusLayers MUST be called here
+  // BEFORE any conditional returns or map initialization
+  // ============================================
+  const layers = useCampusLayers({
+    roomsData: rooms,
+    mode,
+    activeBuildingId,
+    activeFloor,
+    selectedRoom,
+    hoveredRoom,
+    hoveredBuildingId,
+    onBuildingClick: handleBuildingClick,
+    onBuildingHover: setHoveredBuildingId, 
+    onRoomClick: handleRoomClick,
+    onRoomHover: handleRoomHover,
+    routeGeoJson,
+  });
+
+  // ============================================
+  // Map initialization effect (runs once)
+  // ============================================
   useEffect(() => {
     if (mapRef.current || !mapContainer.current) return;
     const map = new maplibregl.Map({
@@ -198,7 +234,7 @@ export default function CampusMap() {
       center: CAMPUS_CENTER, zoom: 16.8, pitch: 45, bearing: 0, antialias: true, maxPitch: 85, dragRotate: false,
     });
     mapRef.current = map;
-    const overlay = new MapboxOverlay({ layers:[], interleaved:false });
+    const overlay = new MapboxOverlay({ layers: [], interleaved: false, parameters: { depthTest: false } });
     map.addControl(overlay);
     overlayRef.current = overlay;
 
@@ -217,7 +253,7 @@ export default function CampusMap() {
     });
 
     map.on('contextmenu', (e) => {
-      e.preventDefault(); // Intercept browser right-click menu
+      e.preventDefault();
       const { lng, lat } = e.lngLat;
       handleRightClickRef.current?.(lng, lat);
     });
@@ -226,20 +262,15 @@ export default function CampusMap() {
     return () => { map.remove(); mapRef.current = null; };
   }, []);
 
-  const layers = useCampusLayers({
-    roomsData: rooms, mode, activeBuildingId, activeFloor,
-    selectedRoom, hoveredRoom,
-    onBuildingClick: handleBuildingClick, onRoomClick: handleRoomClick, onRoomHover: handleRoomHover,
-    routeGeoJson,
-  });
-
+  // Update overlay when layers change
   useEffect(() => { overlayRef.current?.setProps({ layers }); }, [layers]);
 
+  // Compute UI data (these can be after all hooks)
   const floorCfg = useMemo(() => {
     if (selectedRoom && selectedRoom.is_contextual_entity) {
       return {
         label: 'Outdoor/Campus',
-        accentHex: '#38bdf8', // Cyber cyan/blue
+        accentHex: '#38bdf8',
         accentRgb: [56, 189, 248]
       };
     }
@@ -276,14 +307,12 @@ export default function CampusMap() {
     };
   }, [activeBuildingId, rooms]);
 
-  // 1. Authorization check
   const isAccessAllowed = useMemo(() => {
     if (!selectedRoom) return true;
     if (!selectedRoom.allowed_roles) return true;
     return selectedRoom.allowed_roles.includes(userRole);
   }, [selectedRoom, userRole]);
 
-  // 2. Opening Hours check
   const temporalStatus = useMemo(() => {
     if (!selectedRoom) return null;
     if (!selectedRoom.open_time || !selectedRoom.close_time) {
@@ -311,7 +340,6 @@ export default function CampusMap() {
     }
   }, [selectedRoom]);
 
-  // 3. Geodesic coordinates system translation
   const localOffsets = useMemo(() => {
     if (!selectedRoom || !selectedRoom.entrance_lat || !selectedRoom.entrance_lng) return null;
     const originLat = CAMPUS_CENTER[1];
@@ -430,7 +458,6 @@ export default function CampusMap() {
           zIndex: 10,
           alignItems: 'center',
         }}>
-          {/* Building name pill */}
           <div style={{
             padding: '5px 10px',
             borderRadius: 8,
@@ -445,8 +472,6 @@ export default function CampusMap() {
           }}>
             {BUILDINGS[activeBuildingId]?.shortName}
           </div>
-
-          {/* View buttons */}
           {buildingCameras.map(preset => (
             <button
               key={preset.id}
@@ -486,7 +511,7 @@ export default function CampusMap() {
       <div className="map-controls" style={{top:72}}>
         <button className="ctrl-btn" title="Manual Orbit mode" style={eyeMode ? {background:'rgba(26,86,219,.35)',borderColor:'#1A56DB',color:'#7dd3fc',fontSize:16} : {fontSize:16}} onClick={toggleEyeMode}>👁</button>
         <button className="ctrl-btn" title="Reset to default view" onClick={handleBackToBlock}>⌂</button>
-        <button className="ctrl-btn" title="Clear route" onClick={clearRoute}>✕</button>
+        <button className="ctrl-btn" title="Clear route" onClick={() => { clearRoute(); clearPathSelection?.(); setClickedPath(null); }}>✕</button>
       </div>
 
       {/* QUICK SWITCH FLOOR BADGES */}
@@ -578,7 +603,6 @@ export default function CampusMap() {
 
             {/* SECURITY/RBAC & TEMPORAL HUD BLOCK */}
             <div style={{ display: 'flex', flexDirection: 'column', gap: 10, marginBottom: 16 }}>
-              {/* Access Authorization */}
               <div style={{
                 background: isAccessAllowed ? 'rgba(16, 185, 129, 0.08)' : 'rgba(239, 68, 68, 0.08)',
                 border: `1px solid ${isAccessAllowed ? 'rgba(16, 185, 129, 0.25)' : 'rgba(239, 68, 68, 0.35)'}`,
@@ -601,7 +625,6 @@ export default function CampusMap() {
                 </span>
               </div>
 
-              {/* Temporal hours status */}
               {temporalStatus && (
                 <div style={{
                   background: temporalStatus.status === 'open' ? 'rgba(16, 185, 129, 0.06)' : 'rgba(239, 68, 68, 0.06)',
@@ -633,7 +656,6 @@ export default function CampusMap() {
                 </div>
               )}
 
-              {/* Spatial Coordinate System Display */}
               {localOffsets && (
                 <div style={{
                   background: 'rgba(15, 23, 42, 0.5)',
@@ -661,7 +683,6 @@ export default function CampusMap() {
               )}
             </div>
 
-            {/* Glowing Denied Banner */}
             {!isAccessAllowed && (
               <div style={{
                 background: 'linear-gradient(135deg, rgba(239, 68, 68, 0.15) 0%, rgba(220, 38, 38, 0.03) 100%)',
@@ -784,6 +805,9 @@ export default function CampusMap() {
           <span style={{opacity:.5,marginLeft:8}}>{FLOOR_CONFIG[hoveredRoom.floor]?.label} floor</span>
         </div>
       )}
+
+      {/* CAMPUS PATH TOOLTIP */}
+      <PathTooltip hoveredPath={hoveredPath} clickedPath={clickedPath} />
 
       {/* BLOCK MODE HINT */}
       {mode==='block' && mapReady && (

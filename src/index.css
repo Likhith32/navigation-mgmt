@@ -106,3 +106,8 @@ code {
   padding: 4px 8px;
   background: var(--code-bg);
 }
+
+/* Add to your index.css or App.css to tone down harsh contrast lines */
+.maplibregl-map, .mapboxgl-map {
+  filter: grayscale(15%) brightness(98%) contrast(93%);
+}

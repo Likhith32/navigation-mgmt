@@ -93,6 +93,7 @@ export default function CampusMap() {
   const [hoveredBuildingId, setHoveredBuildingId] = useState(null);
   const [events, setEvents] = useState([]);
   const [showLibraryModal, setShowLibraryModal] = useState(false);
+  const [mapBearing, setMapBearing] = useState(0);
   const [isIslandExpanded, setIsIslandExpanded] = useState(false);
 
   const navigate = useNavigate();
@@ -333,6 +334,11 @@ export default function CampusMap() {
 
     map.on('load', () => { 
       setMapReady(true); 
+      setMapBearing(map.getBearing());
+    });
+
+    map.on('rotate', () => {
+      setMapBearing(map.getBearing());
     });
 
     map.on('click', (e) => {
@@ -530,6 +536,51 @@ export default function CampusMap() {
           <option value="admin" style={{ background: '#0a0f1e', color: '#f1f5f9' }}>Admin 🛠</option>
           <option value="visitor" style={{ background: '#0a0f1e', color: '#f1f5f9' }}>Visitor 🧭</option>
         </select>
+      </div>
+
+      {/* DYNAMIC COMPASS HUD */}
+      <div style={{
+        position: 'absolute',
+        bottom: 40,
+        left: 20,
+        zIndex: 20,
+        width: 100,
+        height: 100,
+        background: 'rgba(15, 23, 42, 0.6)',
+        backdropFilter: 'blur(8px)',
+        border: '1px solid rgba(255, 255, 255, 0.1)',
+        borderRadius: '50%',
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center',
+        boxShadow: '0 8px 32px 0 rgba(0, 0, 0, 0.3)',
+        pointerEvents: 'none',
+      }}>
+        <div style={{
+          position: 'relative',
+          width: '100%',
+          height: '100%',
+          transform: `rotate(${-mapBearing}deg)`,
+          transition: 'transform 0.1s ease-out'
+        }}>
+          {/* North */}
+          <div style={{ position: 'absolute', top: 6, left: '50%', transform: 'translateX(-50%)', color: '#EF4444', fontWeight: 800, fontSize: 16 }}>N</div>
+          {/* South */}
+          <div style={{ position: 'absolute', bottom: 6, left: '50%', transform: 'translateX(-50%)', color: '#38bdf8', fontWeight: 800, fontSize: 14 }}>S</div>
+          {/* East */}
+          <div style={{ position: 'absolute', right: 8, top: '50%', transform: 'translateY(-50%)', color: '#38bdf8', fontWeight: 700, fontSize: 14 }}>E</div>
+          {/* West */}
+          <div style={{ position: 'absolute', left: 8, top: '50%', transform: 'translateY(-50%)', color: '#38bdf8', fontWeight: 700, fontSize: 14 }}>W</div>
+          
+          {/* Compass Needles */}
+          <div style={{ position: 'absolute', top: 28, left: '50%', transform: 'translateX(-50%)', width: 4, height: 22, background: 'linear-gradient(to bottom, #EF4444, transparent)', clipPath: 'polygon(50% 0%, 100% 100%, 0% 100%)' }}></div>
+          <div style={{ position: 'absolute', bottom: 28, left: '50%', transform: 'translateX(-50%)', width: 4, height: 22, background: 'linear-gradient(to top, #38bdf8, transparent)', clipPath: 'polygon(50% 100%, 100% 0%, 0% 0%)' }}></div>
+          <div style={{ position: 'absolute', right: 28, top: '50%', transform: 'translateY(-50%)', height: 4, width: 22, background: 'linear-gradient(to left, #38bdf8, transparent)', clipPath: 'polygon(100% 50%, 0% 0%, 0% 100%)' }}></div>
+          <div style={{ position: 'absolute', left: 28, top: '50%', transform: 'translateY(-50%)', height: 4, width: 22, background: 'linear-gradient(to right, #38bdf8, transparent)', clipPath: 'polygon(0% 50%, 100% 100%, 100% 0%)' }}></div>
+          
+          {/* Center Dot */}
+          <div style={{ position: 'absolute', top: '50%', left: '50%', transform: 'translate(-50%, -50%)', width: 8, height: 8, background: '#fff', borderRadius: '50%', boxShadow: '0 0 10px rgba(255,255,255,0.8)' }}></div>
+        </div>
       </div>
 
       {/* DYNAMIC ISLAND SEARCH BAR */}

@@ -1016,6 +1016,7 @@ export function useCampusLayers({
   selectedRoom, hoveredRoom,
   hoveredBuildingId,
   onBuildingClick, onBuildingHover, onRoomClick, onRoomHover,
+  onFirstYear3DClick,
   routeGeoJson,
   viewState,
   onLibrary3DClick,
@@ -1057,7 +1058,7 @@ export function useCampusLayers({
     // LAYER 3: 3D BUILDINGS
     Object.values(BUILDINGS).forEach(bldg => {
       // Hide procedural block for library since we have a 3D model
-      if (bldg.id === 'YSR_LIBRARY') return;
+      if (bldg.id === 'YSR_LIBRARY' || bldg.id === 'BS_HSS') return;
 
       const isActiveBldg = bldg.id === activeBuildingId;
       const bldgMode = isActiveBldg ? mode : 'block';
@@ -1188,6 +1189,7 @@ export function useCampusLayers({
       data: [{ position: [83.3760449, 18.1496610] }],
       scenegraph: '/Models/Library.glb',
       loaders: [GLTFLoader],
+      _lighting: 'pbr',
       getPosition: d => d.position,
       getOrientation: [0, 0, 80], // Rotated by 10 degrees south
       getScale: [1, 1, 1],
@@ -1201,6 +1203,54 @@ export function useCampusLayers({
       }
     }));
 
+    // First Year Block 3D GLB Model Layer
+    layers.push(new ScenegraphLayer({
+      id: 'first-year-block-3d-model',
+      data: [{ position: [83.3744137, 18.1516870] }],
+      scenegraph: '/Models/First Year Block.glb',
+      loaders: [GLTFLoader],
+      _lighting: 'pbr',
+      getPosition: d => d.position,
+      getOrientation: [90, 0, 90], // Pitched up, facing East
+      getScale: [1, 1, 1],
+      getTranslation: [0, 0, 0],
+      pickable: true,
+      onClick: () => {
+        if (onFirstYear3DClick) onFirstYear3DClick();
+      },
+      onHover: ({ object }) => {
+        if (object) document.body.style.cursor = 'pointer';
+      }
+    }));
+
+    // Guest House 3D GLB Model Layer
+    layers.push(new ScenegraphLayer({
+      id: 'guest-house-3d-model',
+      data: [{ position: [83.3779896, 18.1510952] }],
+      scenegraph: '/Models/Guest House.glb',
+      loaders: [GLTFLoader],
+      _lighting: 'pbr',
+      getPosition: d => d.position,
+      getOrientation: [0, 0, 0], 
+      getScale: [1, 1, 1],
+      getTranslation: [0, 0, 0],
+      pickable: false,
+    }));
+
+    // Main Gate 3D GLB Model Layer
+    layers.push(new ScenegraphLayer({
+      id: 'maingate-3d-model',
+      data: [{ position: [83.3801354, 18.1519123] }],
+      scenegraph: '/Models/MainGate.glb',
+      loaders: [GLTFLoader],
+      _lighting: 'pbr',
+      getPosition: d => d.position,
+      getOrientation: [0, 0, 90], // Reversed orientation
+      getScale: [1, 1, 1],
+      getTranslation: [0, 0, 0],
+      pickable: false,
+    }));
+
     return layers.filter(Boolean);
-  }, [roomsData, mode, activeBuildingId, activeFloor, selectedRoom, hoveredRoom, hoveredBuildingId, onBuildingClick, onBuildingHover, onRoomClick, onRoomHover, routeGeoJson, viewState, onLibrary3DClick, eventsData]);
+  }, [roomsData, mode, activeBuildingId, activeFloor, selectedRoom, hoveredRoom, hoveredBuildingId, onBuildingClick, onBuildingHover, onRoomClick, onRoomHover, routeGeoJson, viewState, onLibrary3DClick, onFirstYear3DClick, eventsData]);
 }

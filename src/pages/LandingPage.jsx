@@ -422,7 +422,20 @@ function Section1({ scrollY, onExplore, onHover }) {
 }
 
 function SmartCityDistrict({ onHover }) {
-  const [hovered, setHovered] = useState(null); // 'wave' | 'solar' | 'highrise' | 'cshape' | 'atrium' | null
+  const [hovered, setHovered] = useState('wave'); // 'wave' | 'solar' | 'highrise' | 'cshape' | 'atrium' | null
+  const [isUserHovering, setIsUserHovering] = useState(false);
+
+  useEffect(() => {
+    if (isUserHovering) return;
+    const buildings = ['wave', 'solar', 'highrise', 'cshape', 'atrium'];
+    const interval = setInterval(() => {
+      setHovered((current) => {
+        const nextIndex = (buildings.indexOf(current) + 1) % buildings.length;
+        return buildings[nextIndex];
+      });
+    }, 2000);
+    return () => clearInterval(interval);
+  }, [isUserHovering]);
 
   // Helper: Draw isometric prism
   const drawIsoBox = (cx, cy, w, d, h, leftColor, rightColor, topColor, strokeColor = "rgba(139,195,74,0.18)", opacity = 1) => {
@@ -899,8 +912,8 @@ function SmartCityDistrict({ onHover }) {
             filter: hovered === 'wave' ? 'drop-shadow(0 15px 30px rgba(240,140,138,0.3))' : 'none',
             cursor: 'pointer'
           }}
-          onMouseEnter={() => { setHovered('wave'); onHover(true); }}
-          onMouseLeave={() => { setHovered(null); onHover(false); }}
+          onMouseEnter={() => { setHovered('wave'); onHover(true); setIsUserHovering(true); }}
+          onMouseLeave={() => { onHover(false); setIsUserHovering(false); }}
         >
           {/* Coral Outline Frame Paths */}
           {/* Back edge shadow */}
@@ -938,8 +951,8 @@ function SmartCityDistrict({ onHover }) {
             filter: hovered === 'solar' ? 'drop-shadow(0 15px 30px rgba(139,195,74,0.25))' : 'none',
             cursor: 'pointer'
           }}
-          onMouseEnter={() => { setHovered('solar'); onHover(true); }}
-          onMouseLeave={() => { setHovered(null); onHover(false); }}
+          onMouseEnter={() => { setHovered('solar'); onHover(true); setIsUserHovering(true); }}
+          onMouseLeave={() => { onHover(false); setIsUserHovering(false); }}
         >
           {/* Main frame block */}
           {drawIsoBox(410, 370, 50, 40, 110, '#EEEEEE', '#D6D6D6', '#FFFFFF')}
@@ -978,8 +991,8 @@ function SmartCityDistrict({ onHover }) {
             filter: hovered === 'highrise' ? 'drop-shadow(0 15px 30px rgba(110,136,148,0.3))' : 'none',
             cursor: 'pointer'
           }}
-          onMouseEnter={() => { setHovered('highrise'); onHover(true); }}
-          onMouseLeave={() => { setHovered(null); onHover(false); }}
+          onMouseEnter={() => { setHovered('highrise'); onHover(true); setIsUserHovering(true); }}
+          onMouseLeave={() => { onHover(false); setIsUserHovering(false); }}
         >
           {/* Main skyscraper pillar */}
           {drawIsoBox(590, 240, 42, 42, 175, '#CFD8DC', '#B0BEC5', '#ECEFF1')}
@@ -1010,8 +1023,8 @@ function SmartCityDistrict({ onHover }) {
             filter: hovered === 'cshape' ? 'drop-shadow(0 15px 30px rgba(234,202,163,0.3))' : 'none',
             cursor: 'pointer'
           }}
-          onMouseEnter={() => { setHovered('cshape'); onHover(true); }}
-          onMouseLeave={() => { setHovered(null); onHover(false); }}
+          onMouseEnter={() => { setHovered('cshape'); onHover(true); setIsUserHovering(true); }}
+          onMouseLeave={() => { onHover(false); setIsUserHovering(false); }}
         >
           {/* Curved architectural block */}
           {drawIsoBox(630, 460, 48, 48, 120, '#EEEEEE', '#CCCCCC', '#FFFFFF')}
@@ -1054,8 +1067,8 @@ function SmartCityDistrict({ onHover }) {
             filter: hovered === 'atrium' ? 'drop-shadow(0 15px 30px rgba(139,195,74,0.25))' : 'none',
             cursor: 'pointer'
           }}
-          onMouseEnter={() => { setHovered('atrium'); onHover(true); }}
-          onMouseLeave={() => { setHovered(null); onHover(false); }}
+          onMouseEnter={() => { setHovered('atrium'); onHover(true); setIsUserHovering(true); }}
+          onMouseLeave={() => { onHover(false); setIsUserHovering(false); }}
         >
           {/* Rectangular Atrium Structure: Base cx=440, cy=520, w=55, d=50, h=95 */}
           {drawIsoBox(440, 520, 55, 50, 95, '#CFD8DC', '#ECEFF1', '#FFFFFF')}

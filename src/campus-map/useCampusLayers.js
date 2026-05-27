@@ -1251,6 +1251,23 @@ export function useCampusLayers({
       pickable: false,
     }));
 
+    // Boys Hostel 3D GLB Model Layer
+    layers.push(new ScenegraphLayer({
+      id: 'boys-hostel-3d-model',
+      data: [{ position: [83.3714694, 18.1489667] }],
+      scenegraph: '/Models/Boys Hostel.glb',
+      loaders: [GLTFLoader],
+      _lighting: 'pbr',
+      getPosition: d => d.position,
+      getOrientation: [0, 0, 180], // Facing South to face the main road
+      getScale: [1, 1, 1],
+      getTranslation: [0, 0, 0],
+      pickable: true,
+      onHover: ({ object }) => {
+        if (object) document.body.style.cursor = 'pointer';
+      }
+    }));
+
     return layers.filter(Boolean);
   }, [roomsData, mode, activeBuildingId, activeFloor, selectedRoom, hoveredRoom, hoveredBuildingId, onBuildingClick, onBuildingHover, onRoomClick, onRoomHover, routeGeoJson, viewState, onLibrary3DClick, onFirstYear3DClick, eventsData]);
 }

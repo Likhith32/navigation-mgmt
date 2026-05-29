@@ -1,0 +1,500 @@
+/* CampusMap3D.css — All UI styles for the 3D primary campus map */
+
+/* ── ROOT ─────────────────────────────────────────── */
+.campus-3d-root {
+  position: relative;
+  width: 100%;
+  height: 100vh;
+  overflow: hidden;
+  background: #040810;
+  font-family: 'Inter', 'Segoe UI', system-ui, -apple-system, sans-serif;
+  -webkit-font-smoothing: antialiased;
+}
+
+.campus-3d-canvas {
+  width: 100%;
+  height: 100%;
+}
+
+.campus-3d-canvas canvas {
+  display: block;
+  cursor: grab;
+  user-select: none;
+}
+
+.campus-3d-canvas canvas:active { cursor: grabbing; }
+
+/* ── ROLE BAR (top left) ─────────────────────────── */
+.c3d-role-bar {
+  position: absolute;
+  top: 20px;
+  left: 20px;
+  z-index: 20;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background: rgba(8, 12, 28, 0.88);
+  backdrop-filter: blur(14px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 14px;
+  padding: 7px 14px;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
+}
+
+.c3d-role-label {
+  font-size: 9px;
+  font-weight: 700;
+  color: rgba(255, 255, 255, 0.35);
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+}
+
+.c3d-role-select {
+  background: transparent;
+  border: none;
+  color: #38bdf8;
+  font-size: 13px;
+  font-weight: 600;
+  font-family: inherit;
+  outline: none;
+  cursor: pointer;
+}
+
+.c3d-role-select option {
+  background: #0a0f1e;
+  color: #f1f5f9;
+}
+
+/* ── TITLE BADGE (below role bar) ────────────────── */
+.c3d-badge {
+  position: absolute;
+  top: 68px;
+  left: 20px;
+  z-index: 20;
+  background: rgba(8, 12, 28, 0.82);
+  backdrop-filter: blur(14px);
+  border: 1px solid rgba(255, 255, 255, 0.09);
+  border-radius: 12px;
+  padding: 9px 16px;
+}
+
+.c3d-badge-title {
+  font-size: 13px;
+  font-weight: 700;
+  color: #f1f5f9;
+  letter-spacing: 0.02em;
+}
+
+.c3d-badge-sub {
+  font-size: 10px;
+  color: rgba(255, 255, 255, 0.35);
+  margin-top: 1px;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+}
+
+/* ── BUTTON GROUP (top right) ────────────────────── */
+.c3d-btn-group {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  z-index: 20;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.c3d-btn {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  background: rgba(8, 12, 28, 0.88);
+  backdrop-filter: blur(14px);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 22px;
+  padding: 9px 16px;
+  color: rgba(255, 255, 255, 0.7);
+  font-size: 14px;
+  cursor: pointer;
+  font-family: inherit;
+  font-weight: 500;
+  transition: all 0.22s;
+  white-space: nowrap;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.3);
+}
+
+.c3d-btn:hover {
+  border-color: rgba(255, 255, 255, 0.25);
+  color: white;
+  background: rgba(15, 22, 48, 0.95);
+}
+
+.c3d-btn-label {
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+}
+
+.c3d-btn-active-blue {
+  border-color: rgba(56, 189, 248, 0.5) !important;
+  background: rgba(14, 40, 80, 0.9) !important;
+  color: #38bdf8 !important;
+  box-shadow: 0 0 18px rgba(56, 189, 248, 0.15) !important;
+}
+
+.c3d-btn-active-red {
+  border-color: rgba(239, 68, 68, 0.6) !important;
+  background: rgba(80, 10, 10, 0.9) !important;
+  color: #fca5a5 !important;
+  animation: pulse-red 2s ease-in-out infinite;
+}
+
+@keyframes pulse-red {
+  0%, 100% { box-shadow: 0 0 8px rgba(239, 68, 68, 0.3); }
+  50%       { box-shadow: 0 0 24px rgba(239, 68, 68, 0.7); }
+}
+
+/* ── CINEMATIC OVERLAY ───────────────────────────── */
+.c3d-cinematic-overlay {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 15;
+}
+
+.c3d-cin-letterbox {
+  position: absolute;
+  left: 0;
+  right: 0;
+  height: 9vh;
+  background: #000;
+  transition: height 0.4s ease;
+}
+.c3d-cin-letterbox.top    { top: 0; }
+.c3d-cin-letterbox.bottom { bottom: 0; }
+
+.c3d-cin-label {
+  position: absolute;
+  top: calc(9vh + 14px);
+  left: 28px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 10px;
+  font-weight: 800;
+  letter-spacing: 0.18em;
+  color: rgba(255, 255, 255, 0.65);
+  text-transform: uppercase;
+}
+
+.c3d-cin-dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: #ef4444;
+  animation: blink 1.1s step-start infinite;
+}
+
+@keyframes blink { 50% { opacity: 0; } }
+
+.c3d-cin-title {
+  position: absolute;
+  bottom: calc(9vh + 20px);
+  left: 50%;
+  transform: translateX(-50%);
+  font-size: 22px;
+  font-weight: 700;
+  color: rgba(255, 255, 255, 0.75);
+  letter-spacing: 0.05em;
+  text-shadow: 0 2px 20px rgba(0, 0, 0, 0.8);
+  white-space: nowrap;
+}
+
+.c3d-cin-esc {
+  position: absolute;
+  bottom: calc(9vh + 56px);
+  left: 50%;
+  transform: translateX(-50%);
+  font-size: 11px;
+  color: rgba(255, 255, 255, 0.35);
+  white-space: nowrap;
+}
+
+.c3d-cin-esc kbd {
+  background: rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 4px;
+  padding: 1px 6px;
+  font-size: 10px;
+}
+
+/* ── INFO PANEL (right side) ─────────────────────── */
+.c3d-info-panel {
+  position: absolute;
+  top: 50%;
+  right: 20px;
+  transform: translateY(-50%);
+  z-index: 25;
+  width: 310px;
+  max-height: 82vh;
+  overflow-y: auto;
+  background: rgba(6, 10, 24, 0.96);
+  backdrop-filter: blur(22px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 20px;
+  padding: 22px;
+  box-shadow: 0 24px 64px rgba(0, 0, 0, 0.65),
+              0 0 0 1px rgba(255,255,255,0.04) inset;
+  scrollbar-width: thin;
+  scrollbar-color: rgba(255,255,255,0.1) transparent;
+}
+
+.c3d-info-panel::-webkit-scrollbar { width: 4px; }
+.c3d-info-panel::-webkit-scrollbar-track { background: transparent; }
+.c3d-info-panel::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.12); border-radius: 4px; }
+
+@keyframes slideInRight {
+  from { opacity: 0; transform: translateY(-50%) translateX(24px); }
+  to   { opacity: 1; transform: translateY(-50%) translateX(0); }
+}
+
+.c3d-panel-close {
+  position: absolute;
+  top: 14px;
+  right: 14px;
+  background: rgba(255, 255, 255, 0.06);
+  border: none;
+  color: rgba(255, 255, 255, 0.45);
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  cursor: pointer;
+  font-size: 13px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s;
+  font-family: inherit;
+  flex-shrink: 0;
+}
+
+.c3d-panel-close:hover {
+  background: rgba(239, 68, 68, 0.2);
+  color: #fca5a5;
+}
+
+.c3d-panel-type-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  font-size: 10px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: white;
+  border-radius: 20px;
+  padding: 3px 10px;
+  margin-bottom: 10px;
+}
+
+.c3d-panel-name {
+  font-size: 18px;
+  font-weight: 700;
+  color: #f1f5f9;
+  margin-bottom: 8px;
+  line-height: 1.25;
+  padding-right: 28px;
+}
+
+.c3d-panel-desc {
+  font-size: 12px;
+  color: rgba(255, 255, 255, 0.45);
+  line-height: 1.6;
+  margin-bottom: 16px;
+}
+
+.c3d-panel-stats {
+  display: flex;
+  gap: 7px;
+  margin-bottom: 14px;
+}
+
+.c3d-stat {
+  flex: 1;
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(255, 255, 255, 0.07);
+  border-radius: 10px;
+  padding: 8px 5px;
+  text-align: center;
+}
+
+.c3d-stat-val {
+  font-size: 17px;
+  font-weight: 700;
+  color: #38bdf8;
+}
+
+.c3d-stat-lbl {
+  font-size: 9px;
+  color: rgba(255, 255, 255, 0.3);
+  text-transform: uppercase;
+  letter-spacing: 0.07em;
+  margin-top: 2px;
+}
+
+.c3d-panel-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 5px;
+  margin-bottom: 14px;
+}
+
+.c3d-tag {
+  font-size: 10px;
+  color: rgba(255, 255, 255, 0.45);
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.09);
+  border-radius: 10px;
+  padding: 3px 8px;
+}
+
+.c3d-explore-btn {
+  display: block;
+  width: 100%;
+  padding: 11px;
+  background: linear-gradient(135deg, #0284c7, #0369a1);
+  color: white;
+  border: none;
+  border-radius: 12px;
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  font-family: inherit;
+  transition: all 0.2s;
+  box-shadow: 0 4px 14px rgba(2, 132, 199, 0.4);
+  text-align: center;
+  box-sizing: border-box;
+}
+
+.c3d-explore-btn:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 6px 20px rgba(2, 132, 199, 0.6);
+}
+
+/* ── TOOLTIP ──────────────────────────────────────── */
+.c3d-tooltip {
+  position: fixed;
+  z-index: 30;
+  background: rgba(6, 10, 24, 0.93);
+  border: 1px solid rgba(255, 255, 255, 0.13);
+  border-radius: 8px;
+  padding: 5px 12px;
+  font-size: 12px;
+  font-weight: 600;
+  color: white;
+  pointer-events: none;
+  white-space: nowrap;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.c3d-tooltip-sub {
+  color: rgba(255, 255, 255, 0.38);
+  font-weight: 400;
+  font-size: 10px;
+}
+
+/* ── BOTTOM CONTROLS HINT ────────────────────────── */
+.c3d-controls-bar {
+  position: absolute;
+  bottom: 24px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 10;
+  pointer-events: none;
+}
+
+.c3d-hint {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  background: rgba(6, 10, 24, 0.78);
+  backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 20px;
+  padding: 6px 18px;
+  font-size: 11px;
+  color: rgba(255, 255, 255, 0.45);
+  white-space: nowrap;
+}
+
+.c3d-hint kbd {
+  background: rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  border-radius: 4px;
+  padding: 1px 6px;
+  font-size: 10px;
+  color: rgba(255, 255, 255, 0.75);
+}
+
+.c3d-hint .sep { color: rgba(255, 255, 255, 0.18); }
+
+/* ── TIME INDICATOR (bottom left) ───────────────── */
+.c3d-time-indicator {
+  position: absolute;
+  bottom: 24px;
+  left: 20px;
+  z-index: 10;
+  font-size: 11px;
+  font-weight: 700;
+  padding: 5px 12px;
+  border-radius: 20px;
+  transition: all 0.5s;
+}
+
+.c3d-time-indicator.day {
+  background: rgba(255, 247, 200, 0.12);
+  border: 1px solid rgba(255, 200, 50, 0.25);
+  color: #fcd34d;
+}
+
+.c3d-time-indicator.night {
+  background: rgba(30, 40, 100, 0.35);
+  border: 1px solid rgba(56, 189, 248, 0.25);
+  color: #7dd3fc;
+}
+
+/* ── FPS ──────────────────────────────────────────── */
+.c3d-fps {
+  position: absolute;
+  bottom: 24px;
+  left: 110px;
+  z-index: 10;
+  font-size: 10px;
+  color: rgba(255, 255, 255, 0.18);
+  font-family: monospace;
+}
+
+/* ── RESPONSIVE ──────────────────────────────────── */
+@media (max-width: 768px) {
+  .c3d-info-panel {
+    width: calc(100vw - 32px);
+    right: 16px;
+    left: 16px;
+    top: auto;
+    bottom: 70px;
+    transform: none;
+    max-height: 55vh;
+  }
+
+  @keyframes slideInRight {
+    from { opacity: 0; transform: translateY(16px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+
+  .c3d-hint { font-size: 9px; padding: 5px 12px; gap: 3px; }
+  .c3d-badge-title { font-size: 11px; }
+  .c3d-btn-label { display: none; }
+  .c3d-btn { padding: 9px 12px; }
+}

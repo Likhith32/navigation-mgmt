@@ -1,0 +1,149 @@
+{
+  "entities": [
+    {
+      "id": "entity-1",
+      "entity_type": "building",
+      "name": "AB2",
+      "latitude": 18.151389,
+      "longitude": 83.373611,
+      "category": "Academic Building",
+      "description": "Main Academic Block 2",
+      "role_access": "all",
+      "allowed_roles": ["student", "faculty", "admin", "visitor"]
+    },
+    {
+      "id": "entity-2",
+      "entity_type": "room",
+      "name": "Classroom 3rd Floor",
+      "latitude": 18.151389,
+      "longitude": 83.373611,
+      "category": "classroom",
+      "building_name": "AB2",
+      "floor_number": 3,
+      "role_access": "all",
+      "allowed_roles": ["student", "faculty", "admin", "visitor"],
+      "open_time": "08:00:00",
+      "close_time": "18:00:00"
+    },
+    {
+      "id": "entity-3",
+      "entity_type": "room",
+      "name": "IT Staff Room",
+      "latitude": 18.151389,
+      "longitude": 83.373889,
+      "category": "office",
+      "building_name": "AB2",
+      "floor_number": 3,
+      "role_access": "faculty",
+      "allowed_roles": ["faculty", "admin"],
+      "open_time": "09:00:00",
+      "close_time": "17:00:00"
+    },
+    {
+      "id": "entity-4",
+      "entity_type": "room",
+      "name": "Registrar Room",
+      "latitude": 18.151111,
+      "longitude": 83.375556,
+      "category": "administrative",
+      "role_access": "admin",
+      "allowed_roles": ["admin"],
+      "open_time": "09:00:00",
+      "close_time": "17:00:00"
+    },
+    {
+      "id": "entity-5",
+      "entity_type": "room",
+      "name": "VC Room",
+      "latitude": 18.150833,
+      "longitude": 83.375278,
+      "category": "administrative",
+      "description": "Vice Chancellor Office",
+      "role_access": "admin",
+      "allowed_roles": ["admin"]
+    },
+    {
+      "id": "entity-6",
+      "entity_type": "service",
+      "name": "Canteen",
+      "latitude": 18.151389,
+      "longitude": 83.375833,
+      "category": "food",
+      "description": "Main Campus Canteen",
+      "role_access": "all",
+      "allowed_roles": ["student", "faculty", "admin", "visitor"],
+      "open_time": "07:00:00",
+      "close_time": "22:00:00"
+    },
+    {
+      "id": "entity-7",
+      "entity_type": "service",
+      "name": "Dispensary",
+      "latitude": 18.149167,
+      "longitude": 83.375556,
+      "category": "medical",
+      "description": "Campus Medical Facility",
+      "role_access": "all",
+      "allowed_roles": ["student", "faculty", "admin", "visitor"],
+      "open_time": "00:00:00",
+      "close_time": "23:59:59"
+    },
+    {
+      "id": "entity-8",
+      "entity_type": "service",
+      "name": "Pharma",
+      "latitude": 18.151111,
+      "longitude": 83.375556,
+      "category": "medical",
+      "description": "Pharmacy Store",
+      "role_access": "all",
+      "allowed_roles": ["student", "faculty", "admin", "visitor"],
+      "open_time": "08:00:00",
+      "close_time": "20:00:00"
+    },
+    {
+      "id": "entity-9",
+      "entity_type": "facility",
+      "name": "Boys Toilet",
+      "latitude": 18.151111,
+      "longitude": 83.375000,
+      "category": "restroom",
+      "role_access": "all",
+      "allowed_roles": ["student", "faculty", "admin", "visitor"]
+    },
+    {
+      "id": "entity-10",
+      "entity_type": "facility",
+      "name": "Washroom AB2",
+      "latitude": 18.151111,
+      "longitude": 83.372778,
+      "category": "restroom",
+      "building_name": "AB2",
+      "role_access": "all",
+      "allowed_roles": ["student", "faculty", "admin", "visitor"]
+    },
+    {
+      "id": "entity-11",
+      "entity_type": "facility",
+      "name": "Parking Lot",
+      "latitude": 18.151111,
+      "longitude": 83.374500,
+      "category": "parking",
+      "role_access": "all",
+      "allowed_roles": ["student", "faculty", "admin", "visitor"]
+    },
+    {
+      "id": "entity-12",
+      "entity_type": "building",
+      "name": "YSR Central Library",
+      "latitude": 18.149725,
+      "longitude": 83.376083,
+      "category": "Academic Building",
+      "description": "Central Campus Library. Multi-story architectural marvel housing archives, research journals, and a digital hub. Click the button below to open the interactive 3D model explorer!",
+      "role_access": "all",
+      "allowed_roles": ["student", "faculty", "admin", "visitor"],
+      "open_time": "08:00:00",
+      "close_time": "22:00:00"
+    }
+  ]
+}

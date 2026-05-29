@@ -1,0 +1,332 @@
+{
+  "type": "FeatureCollection",
+  "features": [
+    {
+      "type": "Feature",
+      "properties": {
+        "id": "HOSTEL_BOYS",
+        "name": "Boys Hostel I",
+        "short_name": "B.Hostel I",
+        "floors": 3,
+        "floor_labels": ["Ground", "First", "Second"],
+        "floor_keys": ["G", "F1", "F2"],
+        "floor_height": 3.5,
+        "total_height": 10.5,
+        "elevation_m": 143.95,
+        "type": "hostel",
+        "model_file": "hostel_boys.glb",
+        "color": "#7E3AF2",
+        "room_prefix": "H1"
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [[
+          [83.372375, 18.148956],
+          [83.373239, 18.148864],
+          [83.373211, 18.148486],
+          [83.372328, 18.148589],
+          [83.372375, 18.148956]
+        ]]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": "HOSTEL_BOYS_II",
+        "name": "Boys Hostel II",
+        "short_name": "B.Hostel II",
+        "floors": 3,
+        "floor_labels": ["Ground", "First", "Second"],
+        "floor_keys": ["G", "F1", "F2"],
+        "floor_height": 3.5,
+        "total_height": 10.5,
+        "elevation_m": 140.43,
+        "type": "hostel",
+        "model_file": "hostel_boys_2.glb",
+        "color": "#0E9F6E",
+        "room_prefix": "H2"
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [[
+          [83.371000, 18.148933],
+          [83.371136, 18.149300],
+          [83.371972, 18.149000],
+          [83.371831, 18.148619],
+          [83.371000, 18.148933]
+        ]]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": "HOSTEL_GIRLS_I",
+        "name": "Girls Hostel I",
+        "short_name": "GH-1",
+        "floors": 3,
+        "floor_labels": ["Ground", "First", "Second"],
+        "floor_keys": ["G", "F1", "F2"],
+        "floor_height": 3.5,
+        "total_height": 10.5,
+        "elevation_m": 142.29,
+        "type": "girls_hostel",
+        "model_file": "hostel_girls_1.glb",
+        "color": "#EC4899",
+        "room_prefix": "GH1"
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [[
+          [83.378128, 18.149250],
+          [83.377233, 18.149289],
+          [83.377211, 18.148961],
+          [83.378094, 18.148858],
+          [83.378128, 18.149250]
+        ]]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": "HOSTEL_GIRLS_II",
+        "name": "Girls Hostel II",
+        "short_name": "GH-2",
+        "floors": 3,
+        "floor_labels": ["Ground", "First", "Second"],
+        "floor_keys": ["G", "F1", "F2"],
+        "floor_height": 3.5,
+        "total_height": 10.5,
+        "elevation_m": 137.04,
+        "type": "girls_hostel",
+        "model_file": "hostel_girls_2.glb",
+        "color": "#F97316",
+        "room_prefix": "GH2"
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [[
+          [83.377219, 18.148769],
+          [83.378094, 18.148717],
+          [83.378075, 18.148333],
+          [83.377178, 18.148364],
+          [83.377219, 18.148769]
+        ]]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": "BS_HSS",
+        "name": "BS & HSS Department",
+        "short_name": "BS/HSS",
+        "floors": 2,
+        "floor_labels": ["Ground", "First"],
+        "floor_keys": ["G", "F1"],
+        "floor_height": 3.5,
+        "total_height": 7.0,
+        "elevation_m": 159.05,
+        "type": "academic",
+        "color": "#6DB97A",
+        "room_prefix": "BSH",
+        "description": "Basic Sciences and Humanities department. 8 rooms per floor, central corridor.",
+        "has_corridor": true
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [[
+          [83.374292, 18.151553],
+          [83.374286, 18.151769],
+          [83.374631, 18.151764],
+          [83.374628, 18.151558],
+          [83.374525, 18.151556],
+          [83.374517, 18.151528],
+          [83.374431, 18.151533],
+          [83.374428, 18.151558],
+          [83.374292, 18.151553]
+        ]]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": "MECH_WORKSHOP_1",
+        "name": "Mechanical Workshop 1",
+        "short_name": "Mech W/S 1",
+        "floors": 1,
+        "floor_labels": ["Ground"],
+        "floor_keys": ["G"],
+        "floor_height": 6.0,
+        "total_height": 6.0,
+        "elevation_m": 159.05,
+        "type": "workshop",
+        "color": "#4A90D9",
+        "room_prefix": "MW1",
+        "description": "Large mechanical workshop with overhead shed roof. Single open bay.",
+        "has_corridor": false
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [[
+          [83.374711, 18.151344],
+          [83.374708, 18.151703],
+          [83.374833, 18.151706],
+          [83.374828, 18.151342],
+          [83.374711, 18.151344]
+        ]]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": "MECH_WORKSHOP_2",
+        "name": "Mechanical Workshop 2",
+        "short_name": "Mech W/S 2",
+        "floors": 1,
+        "floor_labels": ["Ground"],
+        "floor_keys": ["G"],
+        "floor_height": 6.0,
+        "total_height": 6.0,
+        "elevation_m": 159.05,
+        "type": "workshop",
+        "color": "#4A90D9",
+        "room_prefix": "MW2",
+        "description": "Large mechanical workshop with blue shed roof. Same structure as Workshop 1.",
+        "has_corridor": false
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [[
+          [83.374936, 18.151342],
+          [83.374931, 18.151703],
+          [83.375056, 18.151711],
+          [83.375047, 18.151331],
+          [83.374936, 18.151342]
+        ]]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": "EXAM_CENTER",
+        "name": "Exam Evaluation Center",
+        "short_name": "Exam Center",
+        "floors": 1,
+        "floor_labels": ["Ground"],
+        "floor_keys": ["G"],
+        "floor_height": 3.5,
+        "total_height": 3.5,
+        "elevation_m": 159.05,
+        "type": "admin",
+        "color": "#D4A843",
+        "room_prefix": "EEC",
+        "description": "Examination evaluation and result processing center.",
+        "has_corridor": false
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [[
+          [83.376219, 18.151461],
+          [83.376275, 18.151564],
+          [83.376564, 18.151381],
+          [83.376508, 18.151289],
+          [83.376219, 18.151461]
+        ]]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": "ESTATE_OFFICE",
+        "name": "Estate Office",
+        "short_name": "Estate",
+        "floors": 1,
+        "floor_labels": ["Ground"],
+        "floor_keys": ["G"],
+        "floor_height": 3.5,
+        "total_height": 3.5,
+        "elevation_m": 159.05,
+        "type": "admin",
+        "color": "#C08B5C",
+        "room_prefix": "EST",
+        "description": "Campus estate management and maintenance coordination office.",
+        "has_corridor": false
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [[
+          [83.376231, 18.151356],
+          [83.376167, 18.151250],
+          [83.376225, 18.151219],
+          [83.376219, 18.151194],
+          [83.376272, 18.151167],
+          [83.376283, 18.151183],
+          [83.376322, 18.151164],
+          [83.376386, 18.151253],
+          [83.376231, 18.151356]
+        ]]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": "CANTEEN",
+        "name": "Canteen",
+        "short_name": "Canteen",
+        "floors": 1,
+        "floor_labels": ["Ground"],
+        "floor_keys": ["G"],
+        "floor_height": 3.5,
+        "total_height": 3.5,
+        "elevation_m": 159.05,
+        "type": "canteen",
+        "color": "#6DB97A",
+        "room_prefix": "CAN",
+        "description": "Main campus canteen serving students and staff.",
+        "has_corridor": false
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [[
+          [83.376072, 18.151317],
+          [83.376061, 18.151319],
+          [83.376053, 18.151308],
+          [83.376022, 18.151322],
+          [83.376028, 18.151339],
+          [83.375958, 18.151378],
+          [83.375997, 18.151442],
+          [83.376108, 18.151378],
+          [83.376072, 18.151317]
+        ]]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": "METALLURGICAL_WORKSHOP",
+        "name": "Metallurgical Workshop",
+        "short_name": "Metall W/S",
+        "floors": 1,
+        "floor_labels": ["Ground"],
+        "floor_keys": ["G"],
+        "floor_height": 5.0,
+        "total_height": 5.0,
+        "elevation_m": 159.05,
+        "type": "workshop",
+        "color": "#8B7355",
+        "room_prefix": "MET",
+        "description": "Metallurgical workshop for materials science and metal processing.",
+        "has_corridor": false
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [[
+          [83.375717, 18.151339],
+          [83.375839, 18.151339],
+          [83.375833, 18.151667],
+          [83.375722, 18.151667],
+          [83.375717, 18.151339]
+        ]]
+      }
+    }
+  ]
+}

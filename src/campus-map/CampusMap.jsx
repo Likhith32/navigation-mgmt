@@ -16,7 +16,7 @@ import { useCampusPaths } from './useCampusPaths';
 import PathTooltip from './PathTooltip';
 import CampusChatbot from './CampusChatbot';
 import LibraryExplorer from '../pages/LibraryExplorer';
-
+import { ViewToggle3D } from '../campus-3d/ViewToggle3D';
 const CAMPUS_CENTER = [83.375500, 18.150300];
 
 const CAMERA_PRESETS = [
@@ -625,7 +625,7 @@ export default function CampusMap() {
               <div className="search-chip" onClick={(e) => { e.stopPropagation(); search('medical'); }}>Medical 💊</div>
               <div className="search-chip" onClick={(e) => { e.stopPropagation(); search('event'); }}>Events 📅</div>
             </div>
-
+            
             {results.length > 0 && (
               <div className="search-results">
                 {results.map(room=>(
@@ -722,6 +722,7 @@ export default function CampusMap() {
         <button className="ctrl-btn" title="Manual Orbit mode" style={eyeMode ? {background:'rgba(26,86,219,.35)',borderColor:'#1A56DB',color:'#7dd3fc',fontSize:16} : {fontSize:16}} onClick={toggleEyeMode}>👁</button>
         <button className="ctrl-btn" title="Reset to default view" onClick={handleBackToBlock}>⌂</button>
         <button className="ctrl-btn" title="Clear route" onClick={() => { clearRoute(); clearPathSelection?.(); setClickedPath(null); }}>✕</button>
+        <ViewToggle3D style={{ position: 'absolute', top: 20, right: 130, zIndex: 20 }} />
       </div>
 
       {/* QUICK SWITCH FLOOR BADGES */}

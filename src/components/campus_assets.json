@@ -1,0 +1,465 @@
+{
+  "type": "FeatureCollection",
+  "features": [
+    {
+      "type": "Feature",
+      "properties": { "asset_type": "street_light", "id": "light_gate_entrance_1", "scale": [1.2, 1.2, 1.2], "rotation": [0, 0.5, 0], "intensity": 2.0 },
+      "geometry": { "type": "Point", "coordinates": [0.0, 0.0, 55.0] }
+    },
+    {
+      "type": "Feature",
+      "properties": { "asset_type": "street_light", "id": "light_gate_entrance_2", "scale": [1.2, 1.2, 1.2], "rotation": [0, -0.5, 0], "intensity": 2.0 },
+      "geometry": { "type": "Point", "coordinates": [10.0, 0.0, 55.0] }
+    },
+    {
+      "type": "Feature",
+      "properties": { "asset_type": "street_light", "id": "light_main_road_1", "scale": [1.0, 1.0, 1.0], "rotation": [0, 0.8, 0], "intensity": 1.4 },
+      "geometry": { "type": "Point", "coordinates": [-15.0, 0.0, 30.0] }
+    },
+    {
+      "type": "Feature",
+      "properties": { "asset_type": "street_light", "id": "light_main_road_2", "scale": [1.0, 1.0, 1.0], "rotation": [0, -0.3, 0], "intensity": 1.4 },
+      "geometry": { "type": "Point", "coordinates": [-5.0, 0.0, 22.0] }
+    },
+    {
+      "type": "Feature",
+      "properties": { "asset_type": "street_light", "id": "light_main_road_3", "scale": [1.0, 1.0, 1.0], "rotation": [0, 0.6, 0], "intensity": 1.4 },
+      "geometry": { "type": "Point", "coordinates": [5.0, 0.0, 14.0] }
+    },
+    {
+      "type": "Feature",
+      "properties": { "asset_type": "street_light", "id": "light_main_road_4", "scale": [1.0, 1.0, 1.0], "rotation": [0, -0.4, 0], "intensity": 1.4 },
+      "geometry": { "type": "Point", "coordinates": [15.0, 0.0, 5.0] }
+    },
+    {
+      "type": "Feature",
+      "properties": { "asset_type": "street_light", "id": "light_main_road_5", "scale": [1.0, 1.0, 1.0], "rotation": [0, 0.7, 0], "intensity": 1.4 },
+      "geometry": { "type": "Point", "coordinates": [25.0, 0.0, -4.0] }
+    },
+    {
+      "type": "Feature",
+      "properties": { "asset_type": "street_light", "id": "light_main_road_6", "scale": [1.0, 1.0, 1.0], "rotation": [0, -0.5, 0], "intensity": 1.4 },
+      "geometry": { "type": "Point", "coordinates": [-25.0, 0.0, 18.0] }
+    },
+    {
+      "type": "Feature",
+      "properties": { "asset_type": "street_light", "id": "light_east_road_1", "scale": [1.0, 1.0, 1.0], "rotation": [0, 1.2, 0], "intensity": 1.4 },
+      "geometry": { "type": "Point", "coordinates": [35.0, 0.0, 8.0] }
+    },
+    {
+      "type": "Feature",
+      "properties": { "asset_type": "street_light", "id": "light_east_road_2", "scale": [1.0, 1.0, 1.0], "rotation": [0, 0.9, 0], "intensity": 1.4 },
+      "geometry": { "type": "Point", "coordinates": [38.0, 0.0, -2.0] }
+    },
+    {
+      "type": "Feature",
+      "properties": { "asset_type": "street_light", "id": "light_east_road_3", "scale": [1.0, 1.0, 1.0], "rotation": [0, -0.7, 0], "intensity": 1.4 },
+      "geometry": { "type": "Point", "coordinates": [40.0, 0.0, -12.0] }
+    },
+    {
+      "type": "Feature",
+      "properties": { "asset_type": "street_light", "id": "light_south_road_1", "scale": [1.0, 1.0, 1.0], "rotation": [0, 0.3, 0], "intensity": 1.4 },
+      "geometry": { "type": "Point", "coordinates": [30.0, 0.0, -22.0] }
+    },
+    {
+      "type": "Feature",
+      "properties": { "asset_type": "street_light", "id": "light_south_road_2", "scale": [1.0, 1.0, 1.0], "rotation": [0, -0.4, 0], "intensity": 1.4 },
+      "geometry": { "type": "Point", "coordinates": [20.0, 0.0, -30.0] }
+    },
+    {
+      "type": "Feature",
+      "properties": { "asset_type": "street_light", "id": "light_south_road_3", "scale": [1.0, 1.0, 1.0], "rotation": [0, 0.6, 0], "intensity": 1.4 },
+      "geometry": { "type": "Point", "coordinates": [10.0, 0.0, -35.0] }
+    },
+    {
+      "type": "Feature",
+      "properties": { "asset_type": "street_light", "id": "light_west_road_1", "scale": [1.0, 1.0, 1.0], "rotation": [0, -1.0, 0], "intensity": 1.4 },
+      "geometry": { "type": "Point", "coordinates": [-30.0, 0.0, 8.0] }
+    },
+    {
+      "type": "Feature",
+      "properties": { "asset_type": "street_light", "id": "light_west_road_2", "scale": [1.0, 1.0, 1.0], "rotation": [0, 0.5, 0], "intensity": 1.4 },
+      "geometry": { "type": "Point", "coordinates": [-32.0, 0.0, -2.0] }
+    },
+    {
+      "type": "Feature",
+      "properties": { "asset_type": "street_light", "id": "light_hostel_area_1", "scale": [0.9, 0.9, 0.9], "rotation": [0, 0.8, 0], "intensity": 1.2 },
+      "geometry": { "type": "Point", "coordinates": [-28.0, 0.0, 28.0] }
+    },
+    {
+      "type": "Feature",
+      "properties": { "asset_type": "street_light", "id": "light_hostel_area_2", "scale": [0.9, 0.9, 0.9], "rotation": [0, -0.6, 0], "intensity": 1.2 },
+      "geometry": { "type": "Point", "coordinates": [-12.0, 0.0, 32.0] }
+    },
+    {
+      "type": "Feature",
+      "properties": { "asset_type": "street_light", "id": "light_hostel_area_3", "scale": [0.9, 0.9, 0.9], "rotation": [0, 0.4, 0], "intensity": 1.2 },
+      "geometry": { "type": "Point", "coordinates": [25.0, 0.0, 22.0] }
+    },
+    {
+      "type": "Feature",
+      "properties": { "asset_type": "street_light", "id": "light_hostel_area_4", "scale": [0.9, 0.9, 0.9], "rotation": [0, -0.7, 0], "intensity": 1.2 },
+      "geometry": { "type": "Point", "coordinates": [35.0, 0.0, 18.0] }
+    },
+    {
+      "type": "Feature",
+      "properties": { "asset_type": "street_light", "id": "light_library_1", "scale": [1.1, 1.1, 1.1], "rotation": [0, 0.5, 0], "intensity": 1.6 },
+      "geometry": { "type": "Point", "coordinates": [12.0, 0.0, 10.0] }
+    },
+    {
+      "type": "Feature",
+      "properties": { "asset_type": "street_light", "id": "light_library_2", "scale": [1.1, 1.1, 1.1], "rotation": [0, -0.5, 0], "intensity": 1.6 },
+      "geometry": { "type": "Point", "coordinates": [18.0, 0.0, 2.0] }
+    },
+    {
+      "type": "Feature",
+      "properties": { "asset_type": "street_light", "id": "light_academic_1", "scale": [1.0, 1.0, 1.0], "rotation": [0, 0.3, 0], "intensity": 1.4 },
+      "geometry": { "type": "Point", "coordinates": [0.0, 0.0, -20.0] }
+    },
+    {
+      "type": "Feature",
+      "properties": { "asset_type": "street_light", "id": "light_academic_2", "scale": [1.0, 1.0, 1.0], "rotation": [0, -0.3, 0], "intensity": 1.4 },
+      "geometry": { "type": "Point", "coordinates": [8.0, 0.0, -28.0] }
+    },
+    {
+      "type": "Feature",
+      "properties": { "asset_type": "street_light", "id": "light_workshop_1", "scale": [0.9, 0.9, 0.9], "rotation": [0, 0.6, 0], "intensity": 1.2 },
+      "geometry": { "type": "Point", "coordinates": [14.0, 0.0, -38.0] }
+    },
+    {
+      "type": "Feature",
+      "properties": { "asset_type": "street_light", "id": "light_workshop_2", "scale": [0.9, 0.9, 0.9], "rotation": [0, -0.4, 0], "intensity": 1.2 },
+      "geometry": { "type": "Point", "coordinates": [22.0, 0.0, -36.0] }
+    },
+    {
+      "type": "Feature",
+      "properties": { "asset_type": "street_light", "id": "light_perimeter_north_1", "scale": [1.0, 1.0, 1.0], "rotation": [0, 1.0, 0], "intensity": 1.3 },
+      "geometry": { "type": "Point", "coordinates": [-20.0, 0.0, 58.0] }
+    },
+    {
+      "type": "Feature",
+      "properties": { "asset_type": "street_light", "id": "light_perimeter_north_2", "scale": [1.0, 1.0, 1.0], "rotation": [0, 1.2, 0], "intensity": 1.3 },
+      "geometry": { "type": "Point", "coordinates": [5.0, 0.0, 60.0] }
+    },
+    {
+      "type": "Feature",
+      "properties": { "asset_type": "street_light", "id": "light_perimeter_north_3", "scale": [1.0, 1.0, 1.0], "rotation": [0, 0.8, 0], "intensity": 1.3 },
+      "geometry": { "type": "Point", "coordinates": [30.0, 0.0, 58.0] }
+    },
+    {
+      "type": "Feature",
+      "properties": { "asset_type": "street_light", "id": "light_perimeter_south_1", "scale": [1.0, 1.0, 1.0], "rotation": [0, -1.0, 0], "intensity": 1.3 },
+      "geometry": { "type": "Point", "coordinates": [-15.0, 0.0, -52.0] }
+    },
+    {
+      "type": "Feature",
+      "properties": { "asset_type": "street_light", "id": "light_perimeter_south_2", "scale": [1.0, 1.0, 1.0], "rotation": [0, -0.7, 0], "intensity": 1.3 },
+      "geometry": { "type": "Point", "coordinates": [10.0, 0.0, -55.0] }
+    },
+    {
+      "type": "Feature",
+      "properties": { "asset_type": "street_light", "id": "light_perimeter_south_3", "scale": [1.0, 1.0, 1.0], "rotation": [0, -1.2, 0], "intensity": 1.3 },
+      "geometry": { "type": "Point", "coordinates": [35.0, 0.0, -52.0] }
+    },
+    {
+      "type": "Feature",
+      "properties": { "asset_type": "street_light", "id": "light_perimeter_west_1", "scale": [1.0, 1.0, 1.0], "rotation": [0, 0.5, 0], "intensity": 1.3 },
+      "geometry": { "type": "Point", "coordinates": [-55.0, 0.0, 30.0] }
+    },
+    {
+      "type": "Feature",
+      "properties": { "asset_type": "street_light", "id": "light_perimeter_west_2", "scale": [1.0, 1.0, 1.0], "rotation": [0, 0.3, 0], "intensity": 1.3 },
+      "geometry": { "type": "Point", "coordinates": [-58.0, 0.0, 0.0] }
+    },
+    {
+      "type": "Feature",
+      "properties": { "asset_type": "street_light", "id": "light_perimeter_west_3", "scale": [1.0, 1.0, 1.0], "rotation": [0, -0.4, 0], "intensity": 1.3 },
+      "geometry": { "type": "Point", "coordinates": [-55.0, 0.0, -30.0] }
+    },
+    {
+      "type": "Feature",
+      "properties": { "asset_type": "street_light", "id": "light_perimeter_east_1", "scale": [1.0, 1.0, 1.0], "rotation": [0, -0.6, 0], "intensity": 1.3 },
+      "geometry": { "type": "Point", "coordinates": [60.0, 0.0, 25.0] }
+    },
+    {
+      "type": "Feature",
+      "properties": { "asset_type": "street_light", "id": "light_perimeter_east_2", "scale": [1.0, 1.0, 1.0], "rotation": [0, -0.8, 0], "intensity": 1.3 },
+      "geometry": { "type": "Point", "coordinates": [62.0, 0.0, -5.0] }
+    },
+    {
+      "type": "Feature",
+      "properties": { "asset_type": "street_light", "id": "light_perimeter_east_3", "scale": [1.0, 1.0, 1.0], "rotation": [0, -0.5, 0], "intensity": 1.3 },
+      "geometry": { "type": "Point", "coordinates": [58.0, 0.0, -35.0] }
+    },
+    {
+      "type": "Feature",
+      "properties": { "asset_type": "tree_oak", "id": "tree_gate_1", "scale": [1.3, 1.4, 1.3], "rotation": [0, 0.8, 0] },
+      "geometry": { "type": "Point", "coordinates": [-5.0, 0.0, 52.0] }
+    },
+    {
+      "type": "Feature",
+      "properties": { "asset_type": "tree_oak", "id": "tree_gate_2", "scale": [1.2, 1.3, 1.2], "rotation": [0, -0.6, 0] },
+      "geometry": { "type": "Point", "coordinates": [15.0, 0.0, 52.0] }
+    },
+    {
+      "type": "Feature",
+      "properties": { "asset_type": "tree_birch", "id": "tree_perimeter_north_1", "scale": [1.1, 1.2, 1.1], "rotation": [0, 0.4, 0] },
+      "geometry": { "type": "Point", "coordinates": [-40.0, 0.0, 55.0] }
+    },
+    {
+      "type": "Feature",
+      "properties": { "asset_type": "tree_birch", "id": "tree_perimeter_north_2", "scale": [1.0, 1.1, 1.0], "rotation": [0, -0.5, 0] },
+      "geometry": { "type": "Point", "coordinates": [-25.0, 0.0, 57.0] }
+    },
+    {
+      "type": "Feature",
+      "properties": { "asset_type": "tree_oak", "id": "tree_perimeter_north_3", "scale": [1.2, 1.3, 1.2], "rotation": [0, 0.7, 0] },
+      "geometry": { "type": "Point", "coordinates": [-10.0, 0.0, 58.0] }
+    },
+    {
+      "type": "Feature",
+      "properties": { "asset_type": "tree_pine", "id": "tree_perimeter_north_4", "scale": [1.1, 1.4, 1.1], "rotation": [0, -0.8, 0] },
+      "geometry": { "type": "Point", "coordinates": [20.0, 0.0, 57.0] }
+    },
+    {
+      "type": "Feature",
+      "properties": { "asset_type": "tree_oak", "id": "tree_perimeter_north_5", "scale": [1.3, 1.2, 1.3], "rotation": [0, 0.3, 0] },
+      "geometry": { "type": "Point", "coordinates": [40.0, 0.0, 55.0] }
+    },
+    {
+      "type": "Feature",
+      "properties": { "asset_type": "tree_birch", "id": "tree_perimeter_south_1", "scale": [1.0, 1.1, 1.0], "rotation": [0, 0.6, 0] },
+      "geometry": { "type": "Point", "coordinates": [-35.0, 0.0, -52.0] }
+    },
+    {
+      "type": "Feature",
+      "properties": { "asset_type": "tree_pine", "id": "tree_perimeter_south_2", "scale": [1.2, 1.5, 1.2], "rotation": [0, -0.4, 0] },
+      "geometry": { "type": "Point", "coordinates": [-20.0, 0.0, -54.0] }
+    },
+    {
+      "type": "Feature",
+      "properties": { "asset_type": "tree_oak", "id": "tree_perimeter_south_3", "scale": [1.1, 1.2, 1.1], "rotation": [0, 0.5, 0] },
+      "geometry": { "type": "Point", "coordinates": [0.0, 0.0, -55.0] }
+    },
+    {
+      "type": "Feature",
+      "properties": { "asset_type": "tree_birch", "id": "tree_perimeter_south_4", "scale": [1.0, 1.1, 1.0], "rotation": [0, -0.7, 0] },
+      "geometry": { "type": "Point", "coordinates": [25.0, 0.0, -54.0] }
+    },
+    {
+      "type": "Feature",
+      "properties": { "asset_type": "tree_oak", "id": "tree_perimeter_south_5", "scale": [1.3, 1.4, 1.3], "rotation": [0, 0.4, 0] },
+      "geometry": { "type": "Point", "coordinates": [45.0, 0.0, -52.0] }
+    },
+    {
+      "type": "Feature",
+      "properties": { "asset_type": "tree_pine", "id": "tree_perimeter_west_1", "scale": [1.1, 1.3, 1.1], "rotation": [0, 0.8, 0] },
+      "geometry": { "type": "Point", "coordinates": [-65.0, 0.0, 40.0] }
+    },
+    {
+      "type": "Feature",
+      "properties": { "asset_type": "tree_oak", "id": "tree_perimeter_west_2", "scale": [1.2, 1.3, 1.2], "rotation": [0, -0.5, 0] },
+      "geometry": { "type": "Point", "coordinates": [-68.0, 0.0, 15.0] }
+    },
+    {
+      "type": "Feature",
+      "properties": { "asset_type": "tree_birch", "id": "tree_perimeter_west_3", "scale": [1.0, 1.1, 1.0], "rotation": [0, 0.6, 0] },
+      "geometry": { "type": "Point", "coordinates": [-65.0, 0.0, -10.0] }
+    },
+    {
+      "type": "Feature",
+      "properties": { "asset_type": "tree_pine", "id": "tree_perimeter_west_4", "scale": [1.1, 1.4, 1.1], "rotation": [0, -0.7, 0] },
+      "geometry": { "type": "Point", "coordinates": [-62.0, 0.0, -35.0] }
+    },
+    {
+      "type": "Feature",
+      "properties": { "asset_type": "tree_oak", "id": "tree_perimeter_east_1", "scale": [1.3, 1.2, 1.3], "rotation": [0, -0.6, 0] },
+      "geometry": { "type": "Point", "coordinates": [70.0, 0.0, 35.0] }
+    },
+    {
+      "type": "Feature",
+      "properties": { "asset_type": "tree_birch", "id": "tree_perimeter_east_2", "scale": [1.1, 1.2, 1.1], "rotation": [0, 0.5, 0] },
+      "geometry": { "type": "Point", "coordinates": [72.0, 0.0, 10.0] }
+    },
+    {
+      "type": "Feature",
+      "properties": { "asset_type": "tree_pine", "id": "tree_perimeter_east_3", "scale": [1.2, 1.5, 1.2], "rotation": [0, -0.8, 0] },
+      "geometry": { "type": "Point", "coordinates": [70.0, 0.0, -15.0] }
+    },
+    {
+      "type": "Feature",
+      "properties": { "asset_type": "tree_oak", "id": "tree_perimeter_east_4", "scale": [1.1, 1.3, 1.1], "rotation": [0, 0.4, 0] },
+      "geometry": { "type": "Point", "coordinates": [68.0, 0.0, -40.0] }
+    },
+    {
+      "type": "Feature",
+      "properties": { "asset_type": "tree_birch", "id": "tree_hostel_cluster_1", "scale": [1.2, 1.3, 1.2], "rotation": [0, 0.9, 0] },
+      "geometry": { "type": "Point", "coordinates": [-30.0, 0.0, 24.0] }
+    },
+    {
+      "type": "Feature",
+      "properties": { "asset_type": "tree_oak", "id": "tree_hostel_cluster_2", "scale": [1.4, 1.3, 1.4], "rotation": [0, -0.7, 0] },
+      "geometry": { "type": "Point", "coordinates": [-22.0, 0.0, 28.0] }
+    },
+    {
+      "type": "Feature",
+      "properties": { "asset_type": "tree_pine", "id": "tree_hostel_cluster_3", "scale": [1.1, 1.4, 1.1], "rotation": [0, 0.5, 0] },
+      "geometry": { "type": "Point", "coordinates": [-15.0, 0.0, 26.0] }
+    },
+    {
+      "type": "Feature",
+      "properties": { "asset_type": "tree_birch", "id": "tree_hostel_cluster_4", "scale": [1.0, 1.1, 1.0], "rotation": [0, -0.4, 0] },
+      "geometry": { "type": "Point", "coordinates": [-8.0, 0.0, 30.0] }
+    },
+    {
+      "type": "Feature",
+      "properties": { "asset_type": "tree_oak", "id": "tree_girls_hostel_1", "scale": [1.3, 1.2, 1.3], "rotation": [0, 0.6, 0] },
+      "geometry": { "type": "Point", "coordinates": [28.0, 0.0, 20.0] }
+    },
+    {
+      "type": "Feature",
+      "properties": { "asset_type": "tree_birch", "id": "tree_girls_hostel_2", "scale": [1.1, 1.2, 1.1], "rotation": [0, -0.8, 0] },
+      "geometry": { "type": "Point", "coordinates": [33.0, 0.0, 14.0] }
+    },
+    {
+      "type": "Feature",
+      "properties": { "asset_type": "tree_pine", "id": "tree_girls_hostel_3", "scale": [1.2, 1.5, 1.2], "rotation": [0, 0.7, 0] },
+      "geometry": { "type": "Point", "coordinates": [38.0, 0.0, 22.0] }
+    },
+    {
+      "type": "Feature",
+      "properties": { "asset_type": "tree_oak", "id": "tree_girls_hostel_4", "scale": [1.0, 1.1, 1.0], "rotation": [0, -0.5, 0] },
+      "geometry": { "type": "Point", "coordinates": [42.0, 0.0, 10.0] }
+    },
+    {
+      "type": "Feature",
+      "properties": { "asset_type": "tree_birch", "id": "tree_library_garden_1", "scale": [1.2, 1.4, 1.2], "rotation": [0, 0.5, 0] },
+      "geometry": { "type": "Point", "coordinates": [10.0, 0.0, 12.0] }
+    },
+    {
+      "type": "Feature",
+      "properties": { "asset_type": "tree_oak", "id": "tree_library_garden_2", "scale": [1.3, 1.4, 1.3], "rotation": [0, -0.6, 0] },
+      "geometry": { "type": "Point", "coordinates": [16.0, 0.0, 8.0] }
+    },
+    {
+      "type": "Feature",
+      "properties": { "asset_type": "tree_pine", "id": "tree_library_garden_3", "scale": [1.1, 1.3, 1.1], "rotation": [0, 0.8, 0] },
+      "geometry": { "type": "Point", "coordinates": [22.0, 0.0, 14.0] }
+    },
+    {
+      "type": "Feature",
+      "properties": { "asset_type": "tree_oak", "id": "tree_library_garden_4", "scale": [1.0, 1.2, 1.0], "rotation": [0, -0.4, 0] },
+      "geometry": { "type": "Point", "coordinates": [14.0, 0.0, 18.0] }
+    },
+    {
+      "type": "Feature",
+      "properties": { "asset_type": "tree_birch", "id": "tree_academic_quad_1", "scale": [1.1, 1.2, 1.1], "rotation": [0, 0.7, 0] },
+      "geometry": { "type": "Point", "coordinates": [-2.0, 0.0, -22.0] }
+    },
+    {
+      "type": "Feature",
+      "properties": { "asset_type": "tree_oak", "id": "tree_academic_quad_2", "scale": [1.2, 1.3, 1.2], "rotation": [0, -0.5, 0] },
+      "geometry": { "type": "Point", "coordinates": [4.0, 0.0, -26.0] }
+    },
+    {
+      "type": "Feature",
+      "properties": { "asset_type": "tree_pine", "id": "tree_academic_quad_3", "scale": [1.0, 1.3, 1.0], "rotation": [0, 0.6, 0] },
+      "geometry": { "type": "Point", "coordinates": [10.0, 0.0, -24.0] }
+    },
+    {
+      "type": "Feature",
+      "properties": { "asset_type": "tree_birch", "id": "tree_academic_quad_4", "scale": [1.1, 1.2, 1.1], "rotation": [0, -0.8, 0] },
+      "geometry": { "type": "Point", "coordinates": [2.0, 0.0, -18.0] }
+    },
+    {
+      "type": "Feature",
+      "properties": { "asset_type": "tree_oak", "id": "tree_canteen_1", "scale": [1.3, 1.2, 1.3], "rotation": [0, 0.5, 0] },
+      "geometry": { "type": "Point", "coordinates": [18.0, 0.0, -12.0] }
+    },
+    {
+      "type": "Feature",
+      "properties": { "asset_type": "tree_birch", "id": "tree_canteen_2", "scale": [1.0, 1.1, 1.0], "rotation": [0, -0.6, 0] },
+      "geometry": { "type": "Point", "coordinates": [24.0, 0.0, -16.0] }
+    },
+    {
+      "type": "Feature",
+      "properties": { "asset_type": "tree_pine", "id": "tree_workshop_1", "scale": [1.1, 1.4, 1.1], "rotation": [0, 0.7, 0] },
+      "geometry": { "type": "Point", "coordinates": [8.0, 0.0, -34.0] }
+    },
+    {
+      "type": "Feature",
+      "properties": { "asset_type": "tree_oak", "id": "tree_workshop_2", "scale": [1.2, 1.3, 1.2], "rotation": [0, -0.5, 0] },
+      "geometry": { "type": "Point", "coordinates": [16.0, 0.0, -40.0] }
+    },
+    {
+      "type": "Feature",
+      "properties": { "asset_type": "tree_birch", "id": "tree_workshop_3", "scale": [1.0, 1.1, 1.0], "rotation": [0, 0.4, 0] },
+      "geometry": { "type": "Point", "coordinates": [24.0, 0.0, -42.0] }
+    },
+    {
+      "type": "Feature",
+      "properties": { "asset_type": "tree_pine", "id": "tree_workshop_4", "scale": [1.2, 1.5, 1.2], "rotation": [0, -0.7, 0] },
+      "geometry": { "type": "Point", "coordinates": [30.0, 0.0, -38.0] }
+    },
+    {
+      "type": "Feature",
+      "properties": { "asset_type": "tree_oak", "id": "tree_central_park_1", "scale": [1.4, 1.5, 1.4], "rotation": [0, 0.8, 0] },
+      "geometry": { "type": "Point", "coordinates": [0.0, 0.0, 5.0] }
+    },
+    {
+      "type": "Feature",
+      "properties": { "asset_type": "tree_birch", "id": "tree_central_park_2", "scale": [1.2, 1.3, 1.2], "rotation": [0, -0.6, 0] },
+      "geometry": { "type": "Point", "coordinates": [-5.0, 0.0, 2.0] }
+    },
+    {
+      "type": "Feature",
+      "properties": { "asset_type": "tree_pine", "id": "tree_central_park_3", "scale": [1.1, 1.4, 1.1], "rotation": [0, 0.5, 0] },
+      "geometry": { "type": "Point", "coordinates": [6.0, 0.0, 0.0] }
+    },
+    {
+      "type": "Feature",
+      "properties": { "asset_type": "tree_oak", "id": "tree_central_park_4", "scale": [1.0, 1.1, 1.0], "rotation": [0, -0.4, 0] },
+      "geometry": { "type": "Point", "coordinates": [-3.0, 0.0, -5.0] }
+    },
+    {
+      "type": "Feature",
+      "properties": { "asset_type": "tree_birch", "id": "tree_road_row_1", "scale": [1.1, 1.2, 1.1], "rotation": [0, 0.6, 0] },
+      "geometry": { "type": "Point", "coordinates": [-12.0, 0.0, 18.0] }
+    },
+    {
+      "type": "Feature",
+      "properties": { "asset_type": "tree_oak", "id": "tree_road_row_2", "scale": [1.2, 1.3, 1.2], "rotation": [0, -0.5, 0] },
+      "geometry": { "type": "Point", "coordinates": [-18.0, 0.0, 12.0] }
+    },
+    {
+      "type": "Feature",
+      "properties": { "asset_type": "tree_pine", "id": "tree_road_row_3", "scale": [1.0, 1.3, 1.0], "rotation": [0, 0.7, 0] },
+      "geometry": { "type": "Point", "coordinates": [2.0, 0.0, 8.0] }
+    },
+    {
+      "type": "Feature",
+      "properties": { "asset_type": "tree_birch", "id": "tree_road_row_4", "scale": [1.1, 1.2, 1.1], "rotation": [0, -0.8, 0] },
+      "geometry": { "type": "Point", "coordinates": [8.0, 0.0, 15.0] }
+    },
+    {
+      "type": "Feature",
+      "properties": { "asset_type": "tree_oak", "id": "tree_road_row_5", "scale": [1.3, 1.2, 1.3], "rotation": [0, 0.5, 0] },
+      "geometry": { "type": "Point", "coordinates": [20.0, 0.0, 25.0] }
+    },
+    {
+      "type": "Feature",
+      "properties": { "asset_type": "tree_pine", "id": "tree_road_row_6", "scale": [1.1, 1.4, 1.1], "rotation": [0, -0.6, 0] },
+      "geometry": { "type": "Point", "coordinates": [28.0, 0.0, 5.0] }
+    },
+    {
+      "type": "Feature",
+      "properties": { "asset_type": "tree_birch", "id": "tree_road_row_7", "scale": [1.0, 1.1, 1.0], "rotation": [0, 0.4, 0] },
+      "geometry": { "type": "Point", "coordinates": [32.0, 0.0, -8.0] }
+    },
+    {
+      "type": "Feature",
+      "properties": { "asset_type": "tree_oak", "id": "tree_road_row_8", "scale": [1.2, 1.3, 1.2], "rotation": [0, -0.7, 0] },
+      "geometry": { "type": "Point", "coordinates": [-22.0, 0.0, -2.0] }
+    }
+  ]
+}
